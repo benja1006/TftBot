@@ -49,5 +49,7 @@ while True:
 
     if k == ord("s"):
         i += 1
+        if i == len(images):
+            break
     if k == ord("q"):
         break
