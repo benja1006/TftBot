@@ -21,25 +21,19 @@ import screeninfo
 def onMouse(event, x, y, flags, param):
     global start_x, start_y, draw
     if event == cv2.EVENT_LBUTTONDOWN:
-        #circle = cv2.circle(images[i], (x, y), 20, (0,0,255), 2)
-        #cv2.imshow("test", circle)
+
         if draw == False:
             start_x, start_y = x, y
+            print(str(x) + " " + str(y))
             draw = True
             return
     elif event == cv2.EVENT_LBUTTONUP:
         draw = False
-        line = cv2.line(images[i],(start_x, start_y), (x,y), (0,0,255), 2)
+        line = cv2.rectangle(images[i],(start_x, start_y), (x,y), (0,0,255), 2)
         cv2.imshow("test", line)
+        print(str(x) + " " + str(y))
 
 
-# while True:
-#     if (cv2.waitKey(1) & 0xFF) == ord('l'):
-#             cv2.destroyAllWindows()
-#             break
-#
-#
-#
 screen = screeninfo.get_monitors()[0]
 cv2.namedWindow("test", cv2.WINDOW_NORMAL)
 cv2.moveWindow("test", screen.x - 1, screen.y - 1)
