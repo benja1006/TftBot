@@ -1,10 +1,8 @@
-import numpy as np
+
 import cv2
-from mss import mss
-from PIL import Image
-import sys
 import os
 import screeninfo
+
 
 def onMouse(event, x, y, flags, param):
     global start_x, start_y, draw
