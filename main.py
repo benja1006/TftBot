@@ -18,14 +18,14 @@ def screenGrabShop():
     indexes = [int(os.path.join(shopPath, f)[len(shopPath)+1:-4]) for f in os.listdir(shopPath) if os.path.isfile(os.path.join(shopPath, f))]
     currIndex = 0
     if indexes != []:
-        currIndex = max(indexes)
+        currIndex = max(indexes) + 1
     image = pyautogui.screenshot()
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     for i in range(0, 5):
         champ = image[yTop:yBottom, xStart + i * xSpacing:xStart + xWidth + i * xSpacing]
         cv2.imwrite(str(os.path.join(shopPath, str(currIndex))) + ".jpg", champ)
         currIndex += 1
-
+    print(currIndex)
 
 # keyboard listening
 def on_press(key):
@@ -33,6 +33,10 @@ def on_press(key):
         return
     if key.char == 'd':
         print('D Pressed')
+        time.sleep(.1)
+        screenGrabShop()
+    if key.char == 'z':
+        print('z Pressed')
         time.sleep(.1)
         screenGrabShop()
 
@@ -54,19 +58,3 @@ listener = keyboard.Listener(
     on_press=on_press,
     on_release=on_release)
 listener.start()
-
-
-
-
-
-#cv2.namedWindow("test", cv2.WINDOW_NORMAL)
-
-# while True:
-#
-#     k = cv2.waitKey(0)
-#
-#     if k == ord("d"):
-#         time.sleep(.1)
-#         screenGrabShop()
-#     if k == ord("q"):
-#         break
