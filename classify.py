@@ -2,6 +2,7 @@ import cv2
 import os
 import screeninfo
 import pytesseract
+import re
 
 screen = screeninfo.get_monitors()[0]
 cv2.namedWindow("test", cv2.WINDOW_NORMAL)
@@ -9,12 +10,11 @@ cv2.namedWindow("test", cv2.WINDOW_NORMAL)
 # cv2.setWindowProperty("test", 0, 1)
 draw = False
 imageDirectory = os.path.join(os.getcwd(), "shopChamps")
-images = [cv2.imread(os.path.join(imageDirectory, f)) for f in os.listdir(imageDirectory) if os.path.isfile(os.path.join(imageDirectory, f))]
-croppedImages = [image[160:182, 10:105] for image in images]
-i = 0
+imageNames = [f for f in os.listdir(imageDirectory) if os.path.isfile(os.path.join(imageDirectory, f))]
+imageFullPaths = [os.path.join(imageDirectory, f) for f in imageNames]
+croppedImages = [cv2.imread(image)[160:182, 10:105] for image in imageFullPaths]
 
-while True:
-    img = cv2.imread(croppedImages[i])
+for i, img in enumerate(croppedImages):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     ret, thresh1 = cv2.threshold(gray, 0, 255,
                                  cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
@@ -23,10 +23,7 @@ while True:
     contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL,
                                            cv2.CHAIN_APPROX_NONE)
 
-    # open and clear file
-    file = open("recognized.txt", "w+")
-    file.write("")
-    file.close()
+
     im2 = img.copy()
     for cnt in contours:
         x, y, w, h = cv2.boundingRect(cnt)
@@ -37,25 +34,18 @@ while True:
         # Cropping the text block for giving input to OCR
         cropped = im2[y:y + h, x:x + w]
 
-        # Open the file in append mode
-        file = open("recognized.txt", "a")
 
         # Apply OCR on the cropped image
         text = pytesseract.image_to_string(cropped)
-
-        # Appending the text into file
-        file.write(text)
-        file.write("\n")
+        text = text[0:-1]
+        text = re.sub(r'\W+', '', text)
+        # Move the uncropped file
+        if text == "":
+            os.rename(imageFullPaths[i], os.path.join(os.getcwd(), "champs", "unknown", imageNames[i]))
+            continue
+        newFolder = os.path.join(os.getcwd(), "champs", text)
+        if not os.path.isdir(newFolder):
+            os.mkdir(newFolder)
+        os.rename(imageFullPaths[i], os.path.join(newFolder, imageNames[i]))
 
         # Close the file
-        file.close
-    cv2.imshow("test", im2)
-
-    k = cv2.waitKey(0)
-
-    if k == ord("s") and i < (len(croppedImages)-1):
-        i += 1
-    if k == ord("a") and i > 0:
-        i -= 1
-    if k == ord("q"):
-        break
