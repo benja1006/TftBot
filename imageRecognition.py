@@ -3,6 +3,7 @@ from tensorflow import keras
 from keras.constraints import maxnorm
 from keras.utils import np_utils
 import os
+import sys
 
 seed = 21
 
@@ -16,7 +17,13 @@ seed = 21
     subset="both"
 )
 
-(X_train, y_train), (X_test, y_test) = champ_ds
+champNames = champ_train.class_names
+X_train, y_train = champ_train
+for image_batch, labels_batch in champ_train:
+  print(image_batch.shape)
+  print(labels_batch.shape)
+  break
+sys.exit()
 
 X_train = X_train.astype('float32')
 X_test = X_test.astype('float32')

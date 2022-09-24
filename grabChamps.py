@@ -7,11 +7,16 @@ import time
 from pynput import keyboard
 
 
-yTop = 1237
-yBottom = 1425
-xStart = 640
-xWidth = 257
-xSpacing = 268
+monitor_x = screeninfo.get_monitors()[0].width
+monitor_y = screeninfo.get_monitors()[0].height
+
+xRatio = monitor_x/2560
+yRatio = monitor_y/1440
+yTop = 1237 * yRatio
+yBottom = 1425 * yRatio
+xStart = 640 * xRatio
+xWidth = 257 * xRatio
+xSpacing = 268 * xRatio
 shopPath = os.path.join(os.getcwd(), "shopChamps")
 
 def screenGrabShop():
