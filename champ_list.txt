@@ -1,0 +1,76 @@
+1_cost
+
+Ezreal(Tempest, Swiftshot)
+Karma(Jade, Dragonmancer)
+Leona(Mirage, Guardian)
+Malphite(Lagoon, Bruiser)
+Nasus(Shimmerscale, Guardian)
+Nidalee(Astral, Shapeshifter)
+Sejuani(Guild, Cavalier)
+Senna(Ragewing, Cannoneer)
+Sett(Ragewing, Dragonmancer)
+Skarner(Astral, Bruiser)
+Taliyah(Lagoon, Mage)
+Vladimir(Astral, Mage)
+Wukong(Jade, Warrior)
+
+2_cost
+
+Aphelios(Darkflight, Cannoneer)
+Braum(Scalescorn, Guardian)
+Gnar(Jade, Shapeshifter)
+Jax(Jade, Shimmerscale, Bruiser)
+Kai’Sa(Lagoon, Dragonmancer)
+Lillia(Scalescorn, Cavalier, Mage)
+Lux(Astral, Mage)
+Qiyana(Tempest, Assassin)
+Rell(Darkflight, Cavalier)
+Twitch(Guild, Swiftshot)
+Yone(Mirage, Warrior)
+Zac(Lagoon, Guardian)
+Zyra(Whispers, Evoker)
+
+3_cost
+
+Diana(Scalescorn, Assassin)
+Heimerdinger(Mage)
+Lee Sin(Tempest, Dragonmancer)
+Lulu(Evoker)
+Nomsy(Prodigy, Dragon, random trait)
+Nunu(Mirage, Cavalier)
+Olaf(Scalescorn, Bruiser, Warrior)
+Rakan(Ragewing, Guardian, Mystic)
+Rengar(Darkflight, Assassin)
+Seraphine(Lagoon, Evoker, Mystic)
+Sylas(Whispers, Mage, Bruiser)
+Tristana(Cannoneer)
+Varus(Astral, Swiftshot)
+Volibear(Shimmerscale, Dragonmancer)
+Zeri(Lagoon, Cannoneer)
+Zippy(Guild, Dragon)
+
+4_cost
+
+Daeja(Mirage, Dragon)
+Graves(Tempest, Cannoneer)
+Hecarim(Ragewing, Cavalier)
+Idas(Shimmerscale, Dragon, Guardian)
+Jayce(Guild, Shapeshifter)
+Nilah(Lagoon, Assassin)
+Pantheon(Whispers, Warrior)
+Shi Oh Yu(Jade, Mystic, Dragon)
+Sohm(Lagoon, Mage, Dragon)
+Swain, Dragon Tyrant(Darkflight, Dragon)
+Sy’fen(Whispers, Mage, Bruiser)
+Xayah(Ragewing, Swiftshot)
+
+5_cost
+
+Ao Shin(Tempest, Dragon)
+Aurelion Sol(Astral, Evoker, Dragon)
+Bard(Guild, Mystic, Bard)
+Shyvana(Ragewing, Shapeshifter, Dragon)
+Soraka(Jade, Starcaller)
+Terra(Monolith, Dragon)
+Yasuo(Mirage, Dragonmancer, Warrior)
+Zoe(Shimmerscale, Spell Thief, Mage)
