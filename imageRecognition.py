@@ -7,13 +7,13 @@ import os
 seed = 21
 
 # import data from folders
-champ_ds = keras.utils.image_dataset_from_directory(
+(champ_train, champs_test) = keras.utils.image_dataset_from_directory(
     directory='champs',
     labels='inferred',
     image_size=(257, 188),
     seed=seed,
     validation_split=.2,
-    subset='both'
+    subset="both"
 )
 
 (X_train, y_train), (X_test, y_test) = champ_ds
