@@ -1,77 +1,120 @@
 import numpy as np
 from tensorflow import keras
+import tensorflow as tf
+from tensorflow.keras import layers
 from keras.constraints import maxnorm
 from keras.utils import np_utils
 import os
 import sys
+import matplotlib.pyplot as plt
 
-seed = 21
+seed = 35
+batch_size = 64
+img_height = 188
+img_width = 257
 
 # import data from folders
-(champ_train, champs_test) = keras.utils.image_dataset_from_directory(
+(champ_train, champ_test) = keras.utils.image_dataset_from_directory(
     directory='champs',
     labels='inferred',
     image_size=(257, 188),
     seed=seed,
     validation_split=.2,
-    subset="both"
+    subset="both",
+    batch_size=batch_size
 )
 
-champNames = champ_train.class_names
-X_train, y_train = champ_train
+champ_names = champ_train.class_names
+
+# prints a sample of the dataset
+plt.figure(figsize=(10,10))
+for champs, labels in champ_train.take(1):
+    for i in range(9):
+        ax = plt.subplot(3, 3, i + 1)
+        plt.imshow(champs[i].numpy().astype("uint8"))
+        plt.title(champ_names[labels[i]])
+        plt.axis("off")
+plt.show()
+
+# prints the shape of the dataset
 for image_batch, labels_batch in champ_train:
   print(image_batch.shape)
   print(labels_batch.shape)
-  break
-sys.exit()
 
-X_train = X_train.astype('float32')
-X_test = X_test.astype('float32')
-X_train = X_train / 255.0
-X_test = X_test / 255.0
 
-y_train = np_utils.to_categorical(y_train)
-y_test = np_utils.to_categorical(y_test)
-class_num = y_test.shape[1]
+# configuring dataset for performance
+AUTOTUNE = tf.data.AUTOTUNE
 
-model = keras.Sequential()
-model.add(keras.layers.Conv2D(32, (3, 3), input_shape=X_train.shape[1:],
-                              padding='same'))
-model.add(keras.layers.Activation('relu'))
+# cache the dataset so that HD isn't a bottleneck
+champ_train = champ_train.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
+champ_test = champ_test.cache().prefetch(buffer_size=AUTOTUNE)
 
-model.add(keras.layers.Conv2D(32, 3, input_shape=(32, 32, 3),
-                              activation='relu', padding='same'))
-model.add(keras.layers.Dropout(0.2))
-model.add(keras.layers.BatchNormalization())
+# rescale the images RGB values to be between 0 and 1
+normalization_layer = keras.layers.Rescaling(1./255)
 
-model.add(keras.layers.Conv2D(64, 3, activation='relu', padding='same'))
-model.add(keras.layers.MaxPooling2D(2))
-model.add(keras.layers.Dropout(0.2))
-model.add(keras.layers.BatchNormalization())
+normalized_ds = champ_train.map(lambda x, y: (normalization_layer(x), y))
+image_batch, labels_batch = next(iter(normalized_ds))
+first_image = image_batch[0]
+# Notice the pixel values are now in `[0,1]`.
+print(np.min(first_image), np.max(first_image))
 
-model.add(keras.layers.Conv2D(64, 3, activation='relu', padding='same'))
-model.add(keras.layers.MaxPooling2D(2))
-model.add(keras.layers.Dropout(0.2))
-model.add(keras.layers.BatchNormalization())
 
-model.add(keras.layers.Conv2D(128, 3, activation='relu', padding='same'))
-model.add(keras.layers.Dropout(0.2))
-model.add(keras.layers.BatchNormalization())
+# create model
 
-model.add(keras.layers.Flatten())
-model.add(keras.layers.Dropout(0.2))
+num_classes = len(champ_names)
 
-model.add(keras.layers.Dense(32, activation='relu'))
-model.add(keras.layers.Dropout(0.3))
-model.add(keras.layers.BatchNormalization())
 
-model.add(keras.layers.Dense(class_num, activation='softmax'))
+model = keras.Sequential([
+  layers.Rescaling(1./255, input_shape=(img_width, img_height, 3)),
+  layers.Conv2D(16, 3, padding='same', activation='relu'),
+  layers.MaxPooling2D(),
+  layers.Conv2D(32, 3, padding='same', activation='relu'),
+  layers.MaxPooling2D(),
+  layers.Conv2D(64, 3, padding='same', activation='relu'),
+  layers.MaxPooling2D(),
+  layers.Flatten(),
+  layers.Dense(128, activation='relu'),
+  layers.Dense(num_classes)
+])
+# compile model
+model.compile(optimizer='adam',
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=['accuracy'])
 
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy', 'val_accuracy'])
-print(model.summary())
+# summerize model
+model.summary()
 
-numpy.random.seed(seed)
-history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=25, batch_size=64)
+# train the model
 
-scores = model.evaluate(X_test, y_test, verbose=0)
-print("Accuracy: %.2f%%" % (scores[1]*100))
+epochs=100
+
+history = model.fit(
+  champ_train,
+  validation_data=champ_test,
+  epochs=epochs
+)
+
+# visualize the
+
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
+
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs_range = range(epochs)
+
+plt.figure(figsize=(8, 8))
+plt.subplot(1, 2, 1)
+plt.plot(epochs_range, acc, label='Training Accuracy')
+plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+plt.legend(loc='lower right')
+plt.title('Training and Validation Accuracy')
+
+plt.subplot(1, 2, 2)
+plt.plot(epochs_range, loss, label='Training Loss')
+plt.plot(epochs_range, val_loss, label='Validation Loss')
+plt.legend(loc='upper right')
+plt.title('Training and Validation Loss')
+plt.show()
+model.save(os.path.join(os.getcwd(), 'my_model'))
