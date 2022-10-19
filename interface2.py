@@ -5,8 +5,7 @@ import tkinter.ttk as ttk
 import re
 import os
 import myFuncs
-os.system("clear")
-# CLEAR
+
 
 champ_list = myFuncs.open_file()
 window = Tk()
@@ -31,9 +30,9 @@ def stop(button):
 
 
 def clearButtons():
-    for j in range(0, 1):  # 1 costs
+    for j in range(0, 5):  # 1 costs
         for i in range(len(champ_list[j])):
-            stop(myDict["button_" + str(i)])
+            stop(myDict["button_" + str(i)+str(j)])
 
 
 for j in range(0, 5):  # 1 costs
