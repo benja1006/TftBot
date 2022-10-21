@@ -47,10 +47,8 @@ def on_press(key):
 
 
 def on_release(key):
-    if not hasattr(key, 'char'):
-        return
-    if key.char == 'q':
-        return False
+    return
+
 
 
 with keyboard.Listener(
