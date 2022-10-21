@@ -1,7 +1,7 @@
 import numpy as np
 from tensorflow import keras
 import tensorflow as tf
-from tensorflow.keras import layers
+from keras import layers
 from keras.constraints import maxnorm
 from keras.utils import np_utils
 import os
@@ -27,7 +27,7 @@ img_width = 257
 champ_names = champ_train.class_names
 
 # prints a sample of the dataset
-plt.figure(figsize=(10,10))
+plt.figure(figsize=(10, 10))
 for champs, labels in champ_train.take(1):
     for i in range(9):
         ax = plt.subplot(3, 3, i + 1)
@@ -38,8 +38,8 @@ plt.show()
 
 # prints the shape of the dataset
 for image_batch, labels_batch in champ_train:
-  print(image_batch.shape)
-  print(labels_batch.shape)
+    print(image_batch.shape)
+    print(labels_batch.shape)
 
 
 # configuring dataset for performance
@@ -65,20 +65,21 @@ num_classes = len(champ_names)
 
 
 model = keras.Sequential([
-  layers.Rescaling(1./255, input_shape=(img_width, img_height, 3)),
-  layers.Conv2D(16, 3, padding='same', activation='relu'),
-  layers.MaxPooling2D(),
-  layers.Conv2D(32, 3, padding='same', activation='relu'),
-  layers.MaxPooling2D(),
-  layers.Conv2D(64, 3, padding='same', activation='relu'),
-  layers.MaxPooling2D(),
-  layers.Flatten(),
-  layers.Dense(128, activation='relu'),
-  layers.Dense(num_classes)
+    layers.Rescaling(1./255, input_shape=(img_width, img_height, 3)),
+    layers.Conv2D(16, 3, padding='same', activation='relu'),
+    layers.MaxPooling2D(),
+    layers.Conv2D(32, 3, padding='same', activation='relu'),
+    layers.MaxPooling2D(),
+    layers.Conv2D(64, 3, padding='same', activation='relu'),
+    layers.MaxPooling2D(),
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+    layers.Dense(num_classes)
 ])
 # compile model
 model.compile(optimizer='adam',
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(
+                  from_logits=True),
               metrics=['accuracy'])
 
 # summerize model
@@ -86,12 +87,12 @@ model.summary()
 
 # train the model
 
-epochs=100
+epochs = 100
 
 history = model.fit(
-  champ_train,
-  validation_data=champ_test,
-  epochs=epochs
+    champ_train,
+    validation_data=champ_test,
+    epochs=epochs
 )
 
 # visualize the
