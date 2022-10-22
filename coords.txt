@@ -1,4 +1,0 @@
-10 160
-105 182
-
-coords for text box of shopChamps
