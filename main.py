@@ -4,14 +4,23 @@ import tensorflow as tf
 from tensorflow import keras
 from keras import layers
 import os
+import Utils.grabChampImages as gci
+import time
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
 def main():
+    TF_MODEL_FILE_PATH = 'model.tflite'
     print('\n\nrunning...')
-    model = keras.models.load_model(path.join(os.getcwd(), 'my_model'))  # type: ignore
-    # model.predict()
-
+    interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)
+    labels = gci.getLabels(os.path.join(os.getcwd(), 'labels.txt'))
+    ################################# MAIN LOOP ################################
+    # on shop update
+    images = gci.screenGrabShop()
+    for image in images:
+        print(gci.predictImage(image, interpreter, labels))
 
 if __name__ == "__main__":
+    time.sleep(5)
     main()
