@@ -17,9 +17,14 @@ def main():
     labels = gci.getLabels(os.path.join(os.getcwd(), 'labels.txt'))
     ################################# MAIN LOOP ################################
     # on shop update
+
+
+
+def imagePredict(labels, interpreter):
     images = gci.screenGrabShop()
     for image in images:
-        print(gci.predictImage(image, interpreter, labels))
+        gci.predictImage(image, interpreter, labels)
+
 
 if __name__ == "__main__":
     time.sleep(5)
