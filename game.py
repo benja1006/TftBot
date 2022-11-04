@@ -1,8 +1,10 @@
 '''Handles the gameplay'''
 import win32gui
+import time
+
 
 class Game:
-    def __init__():
+    def __init__(self):
         self.round = 0.
         self.roundStatus = "Loading Screen"
         self.found_window = False
@@ -10,7 +12,7 @@ class Game:
         while not self.found_window:
             print("  Did not find window, trying again...")
             win32gui.EnumWindows(self.findWindow, None)
-            sleep(1)
+            time.sleep(1)
 
     def findWindow(self, hwnd, extra):
         if "League of Legends (TM) Client" not in win32gui.GetWindowText(hwnd):
