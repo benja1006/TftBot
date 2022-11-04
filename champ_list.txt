@@ -61,7 +61,7 @@ Pantheon(Whispers, Warrior)
 Shi Oh Yu(Jade, Mystic, Dragon)
 Sohm(Lagoon, Mage, Dragon)
 Swain, Dragon Tyrant(Darkflight, Dragon)
-Sy’fen(Whispers, Mage, Bruiser)
+Sy'fen(Whispers, Mage, Bruiser)
 Xayah(Ragewing, Swiftshot)
 
 5_cost
