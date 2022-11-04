@@ -1,0 +1,14 @@
+tensorflow
+win32gui
+tkinter
+re
+opencv-python
+screeninfo
+pytesseract
+pyautogui
+numpy
+matplotlib
+
+
+
+
