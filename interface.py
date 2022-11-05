@@ -52,15 +52,3 @@ class MyWindow:
         # Get list
         def getList():
             return cur_list
-
-
-def main():
-    window = Tk()
-    mywin = MyWindow(window)
-    window.title('Champs List')
-    window.geometry("800x500+10+10")
-    window.mainloop()
-
-
-if __name__ == "__main__":
-    main()
