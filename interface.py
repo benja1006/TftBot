@@ -60,6 +60,7 @@ def main():
     window.title('Champs List')
     window.geometry("800x500+10+10")
     window.mainloop()
+    return mywin
 
 
 if __name__ == "__main__":
