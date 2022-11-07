@@ -1,4 +1,4 @@
-def getCoords(coords_file):
+def get_coords(coords_file):
     coords = {}
     with open(coords_file) as file:
         for line in file.readlines():

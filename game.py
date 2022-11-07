@@ -2,6 +2,7 @@
 import win32gui
 import time
 from window import Window
+import game_functions
 
 
 class Game:
@@ -42,3 +43,14 @@ class Game:
         self.game_loop()
 
     def game_loop(self):
+        #get current desired champs
+        self.wanted_champs = self.interface.getList()
+        self.round = game_functions.get_round(self.Window)
+        if self.round not in ["0-0", "1-1", "2-4", "3-4", "4-4", "5-4", "6-4", "7-4"]:
+            # we are in a regular round
+            curr_champs = game_functions.get_curr_champs(window)
+            for champ, idx in curr_champs:
+                if champ in self.wanted_champs:
+                    #draw outline around index on overlay
+                    print("Buy " + champ + " in the " + str(idx) + "position")
+        game_functions.update_tk_loop(self.interface.tk, 1)

@@ -4,17 +4,8 @@ import numpy as np
 import pyautogui
 import screeninfo
 
-def screenGrabShop():
-    monitor_x = screeninfo.get_monitors()[0].width
-    monitor_y = screeninfo.get_monitors()[0].height
-
-    xRatio = monitor_x/2560
-    yRatio = monitor_y/1440
-    yTop = int(1237 * yRatio)
-    yBottom = int(1425 * yRatio)
-    xStart = int(640 * xRatio)
-    xWidth = int(257 * xRatio)
-    xSpacing = int(268 * xRatio)
+def screenGrabShop(yTop, yBottom, xLeft, xRight, xSpacing):
+    xWidth = xRight-xLeft
 
     image = pyautogui.screenshot()
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
