@@ -34,4 +34,5 @@ def get_text_from_image(img):
     text = pytesseract.image_to_string(cropped)
     text = text[0:-1]
     return pytesseract.image_to_string(cropped,
-                                       config=f'--psm 7 -c tessedit_char_whitelist=""').strip()
+                                       config=f'--psm 7 -c '
+                                       'tessedit_char_whitelist=""').strip()
