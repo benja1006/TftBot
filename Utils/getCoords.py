@@ -15,7 +15,8 @@ def onMouse(event, x, y, flags, param):
             return
     elif event == cv2.EVENT_LBUTTONUP:
         draw = False
-        line = cv2.rectangle(images[i], (start_x, start_y), (x, y), (0, 0, 255), 2)
+        line = cv2.rectangle(images[i],
+                             (start_x, start_y), (x, y), (0, 0, 255), 2)
         cv2.imshow("test", line)
         print(str(x) + " " + str(y))
 
@@ -27,7 +28,9 @@ cv2.setWindowProperty("test", 0, 1)
 cv2.setMouseCallback('test', onMouse)
 draw = False
 imageDirectory = os.path.join(os.getcwd(), "images")
-images = [cv2.imread(os.path.join(imageDirectory, f)) for f in os.listdir(imageDirectory) if os.path.isfile(os.path.join(imageDirectory, f))];
+images = [cv2.imread(os.path.join(imageDirectory, f))
+          for f in os.listdir(imageDirectory)
+          if os.path.isfile(os.path.join(imageDirectory, f))]
 i = 0
 while True:
 

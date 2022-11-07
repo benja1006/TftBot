@@ -1,8 +1,12 @@
+"""Some utilities needed for the game and game funcitons to run."""
 import cv2
 import pytesseract
+import random
+import os
 
 
 def get_coords(coords_file):
+    """Return a dictionary of saved coordinates from coords_file."""
     coords = {}
     with open(coords_file) as file:
         for line in file.readlines():
@@ -12,6 +16,7 @@ def get_coords(coords_file):
 
 
 def get_text_from_image(img):
+    """Return the text in the image."""
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     ret, thresh1 = cv2.threshold(gray, 0, 255,
                                  cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
@@ -34,5 +39,11 @@ def get_text_from_image(img):
     text = pytesseract.image_to_string(cropped)
     text = text[0:-1]
     return pytesseract.image_to_string(cropped,
-                                       config=f'--psm 7 -c '
+                                       config='--psm 7 -c '
                                        'tessedit_char_whitelist=""').strip()
+
+
+def save_image(img, path):
+    """Save an image to the desired path  with a random name."""
+    name = str(random.randint(1, 100000000)) + '.jpg'
+    cv2.imwrite(os.path.join(path, name), img)

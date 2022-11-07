@@ -1,5 +1,5 @@
 from window import Window
-from Utils.game_utils import get_coords, get_text_from_image
+from Utils.game_utils import get_coords, get_text_from_image, save_image
 import pyautogui
 import os
 import time
@@ -74,7 +74,9 @@ def get_curr_champs(window: Window) -> [()]:
     TF_MODEL_FILE_PATH = 'model.tflite'
     labels = gci.getLabels(os.path.join(os.getcwd(), 'labels.txt'))
     interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)
-
-    curr_champs = [(gci.predictImage(img, interpreter, labels), idx)
-                   for idx, img in enumerate(images)]
+    curr_champs = []
+    for idx, img in enumerate(images):
+        curr_champs.append((gci.predictImage(img, interpreter, labels), idx))
+        champ_path = os.join(os.getcwd(), 'UnsortedChampImages')
+        save_image(champ_path, img)
     return curr_champs
