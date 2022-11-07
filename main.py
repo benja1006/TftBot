@@ -7,6 +7,7 @@ import os
 import Utils.grabChampImages as gci
 import time
 import interface
+from game import Game
 
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -20,7 +21,7 @@ def main():
     window = interface.main()
     ################################# MAIN LOOP ################################
     # on shop update
-
+    game = Game(window)
 
 
 

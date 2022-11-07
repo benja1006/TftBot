@@ -5,16 +5,16 @@ from window import Window
 
 
 class Game:
-    def __init__(self, tk):
-        self.round = 0.
+    def __init__(self, interface):
+        self.round = "0-0"
         self.roundStatus = "Loading Screen"
         self.found_window = False
-        self.tk = tk
+        self.interface = interface
         print("\n[!] Searching for game window")
         while not self.found_window:
             print("  Did not find window, trying again...")
             win32gui.EnumWindows(self.findWindow, None)
-            game_functions.update_tk_loop(self.tk, 1)
+            game_functions.update_tk_loop(self.interface.tk, 1)
         self.loading_screen()
 
     def findWindow(self, hwnd, extra):
@@ -37,4 +37,8 @@ class Game:
         self.found_window = True
 
     def loading_screen(self):
-        print()
+        while game_functions.get_round(self.Window) != "1-1":
+            game_functions.update_tk_loop(self.interface.tk, 1)
+        self.game_loop()
+
+    def game_loop(self):

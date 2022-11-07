@@ -8,6 +8,7 @@ import Utils.myFuncs as myFuncs
 
 class MyWindow:
     def __init__(self, win):
+        self.tk = win
         champ_list = myFuncs.open_file()
         myDict = {}
         dx = 25

@@ -1,9 +1,10 @@
 from window import Window
-from Utils.screenCoords import getConsts
+from Utils.game_utils import *
 import pyautogui
 import pytesseract
 import os
 import time
+import cv2
 
 
 def trPoint(x: int, y: int, window: Window) -> tuple:
@@ -17,12 +18,18 @@ def trPoint(x: int, y: int, window: Window) -> tuple:
     return (new_x, new_y)
 
 
-def get_round(window: Window):
+def get_round(window: Window) -> str:
     consts = getConsts(os.path.join(os.getcwd(), 'screen_coords.txt'))
     top, left = trPoint(consts['ROUND_NUM_TOP'], consts['ROUND_NUM_LEFT'],
                         window)
     bottom, right = trPoint(consts['ROUND_NUM_BOT'], consts['ROUND_NUM_RIGHT'],
                             window)
+    image = pyautogui.screenshot()
+    image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+    cropped_image = image[top:bottom, left:right]
+    roundstr = get_text_from_image(image)
+    print('Current round: ' + roundstr)
+    return roundstr
 
 
 def update_tk(tk):
