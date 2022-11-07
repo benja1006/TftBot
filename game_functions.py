@@ -3,6 +3,7 @@ from Utils.screenCoords import getConsts
 import pyautogui
 import pytesseract
 import os
+import time
 
 
 def trPoint(x: int, y: int, window: Window) -> tuple:
@@ -15,9 +16,22 @@ def trPoint(x: int, y: int, window: Window) -> tuple:
 
     return (new_x, new_y)
 
+
 def get_round(window: Window):
     consts = getConsts(os.path.join(os.getcwd(), 'screen_coords.txt'))
     top, left = trPoint(consts['ROUND_NUM_TOP'], consts['ROUND_NUM_LEFT'],
                         window)
     bottom, right = trPoint(consts['ROUND_NUM_BOT'], consts['ROUND_NUM_RIGHT'],
                             window)
+
+
+def update_tk(tk):
+    tk.update()
+    tk.update_idletasks()
+
+
+def update_tk_loop(tk, wait_time):
+    for i in range(wait_time*10):
+        tk.update()
+        tk.update_idletasks()
+        time.sleep(.1)
