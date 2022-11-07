@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class Window:
     def __init__(self, x, y, width, height):

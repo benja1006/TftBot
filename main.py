@@ -19,17 +19,15 @@ def main():
     interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)
     labels = gci.getLabels(os.path.join(os.getcwd(), 'labels.txt'))
     window = interface.main()
-    ################################# MAIN LOOP ################################
+    # ################################ MAIN LOOP ############################ #
     # on shop update
     game = Game(window)
-
 
 
 def imagePredict(labels, interpreter):
     images = gci.screenGrabShop()
     for image in images:
         gci.predictImage(image, interpreter, labels)
-
 
 
 if __name__ == "__main__":
