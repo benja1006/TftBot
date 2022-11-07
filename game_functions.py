@@ -50,6 +50,7 @@ def update_tk(tk):
 
 def update_tk_loop(tk, wait_time):
     for i in range(wait_time*10):
+        #break this loop if the d key is pressed
         tk.update()
         tk.update_idletasks()
         time.sleep(.1)
