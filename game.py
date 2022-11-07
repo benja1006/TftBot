@@ -3,16 +3,18 @@ import win32gui
 import time
 from window import Window
 
+
 class Game:
-    def __init__(self):
+    def __init__(self, tk):
         self.round = 0.
         self.roundStatus = "Loading Screen"
         self.found_window = False
+        self.tk = tk
         print("\n[!] Searching for game window")
         while not self.found_window:
             print("  Did not find window, trying again...")
             win32gui.EnumWindows(self.findWindow, None)
-            time.sleep(1)
+            self.update_tk_loop(1)
         self.loading_screen()
 
     def findWindow(self, hwnd, extra):
@@ -35,3 +37,14 @@ class Game:
         self.found_window = True
 
     def loading_screen(self):
+        print()
+
+    def update_tk(self):
+        self.tk.update()
+        self.tk.update_idletasks()
+
+    def update_tk_loop(self, wait_time):
+        for i in range(wait_time*10):
+            self.tk.update()
+            self.tk.update_idletasks()
+            time.sleep(.1)
