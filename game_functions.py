@@ -7,6 +7,8 @@ import time
 import cv2
 import Utils.grabChampImages as gci
 import numpy as np
+import screen_coords as sc
+import re
 
 
 def trPoint(x: int, y: int, window: Window) -> tuple:
@@ -37,20 +39,35 @@ def trY(y: int, window: Window) -> int:
 
 def get_round(window: Window) -> str:
     """Return the current round."""
-    consts = get_coords(os.path.join(os.getcwd(), 'screen_coords.txt'))
-    top, left = trPoint(consts['ROUND_NUM_TOP'], consts['ROUND_NUM_LEFT'],
-                        window)
-    bottom, right = trPoint(consts['ROUND_NUM_BOT'], consts['ROUND_NUM_RIGHT'],
-                            window)
+    # def top bot left right
+    top = trY(sc.ROUND_NUM_TOP, window)
+    bottom = trY(sc.ROUND_NUM_BOT, window)
+    left = trX(sc.ROUND_NUM_LEFT, window)
+    right = trX(sc.ROUND_NUM_RIGHT, window)
+
+    # grab the screen shot
     image = pyautogui.screenshot()
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     cropped_image = image[top:bottom, left:right]
-    # save the image for testing purposes
-    round_path = os.path.join(os.getcwd(), 'RoundImages')
-    save_image(round_path, cropped_image)
     roundstr = get_text_from_image(cropped_image)
-    print('Current round: ' + roundstr)
-    return roundstr
+    if re.match("/([0-9]-[0-9])/g", roundstr):
+        # save the image for testing purposes
+        round_path = os.path.join(os.getcwd(), 'RoundImages')
+        save_image(round_path, cropped_image)
+        print('Current round: ' + roundstr)
+        return roundstr
+    left = trX(sc.ROUND_NUM_START_LEFT, window)
+    right = trX(sc.ROUND_NUM_START_RIGHT, window)
+    cropped_image = image[top:bottom, left:right]
+    roundstr = get_text_from_image(cropped_image)
+    if re.match("/([0-9]-[0-9])/g", roundstr):
+        # save the image for testing purposes
+        round_path = os.path.join(os.getcwd(), 'RoundImages')
+        save_image(round_path, cropped_image)
+        print('Current round: ' + roundstr)
+        return roundstr
+
+    return ""
 
 
 def update_tk(tk):

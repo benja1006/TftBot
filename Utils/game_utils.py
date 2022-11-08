@@ -5,17 +5,6 @@ import random
 import os
 
 
-def get_coords(coords_file):
-    """Return a dictionary of saved coordinates from coords_file."""
-    coords = {}
-    with open(coords_file) as file:
-        for line in file.readlines():
-            (key, val) = line.split('=')
-            coords[key] = int(val)
-    # print(coords)
-    return coords
-
-
 def get_text_from_image(img):
     """Return the text in the image."""
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)

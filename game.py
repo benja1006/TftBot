@@ -50,11 +50,8 @@ class Game:
 
     def loading_screen(self):
         """Wait for the loading screen to end."""
-        started = False
         # while game_functions.get_round(self.Window) != "1-1":
-        while not started:
-            round = game_functions.get_round(self.Window)
-            started = re.match("/([0-9]-[0-9])/g", round)
+        while game_functions.get_round(self.Window) == "":
             game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
             self.dPressed = False
         self.game_loop()
