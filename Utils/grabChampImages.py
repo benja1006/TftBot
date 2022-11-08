@@ -22,13 +22,8 @@ def screenGrabShop(yTop, yBottom, xLeft, xRight, xSpacing):
 def predictImage(image, interpreter, class_names):
     """Predict the champ in a given image."""
     # # get image
-    # img_height = 188
-    # img_width = 257
-    # img = tf.keras.utils.load_img(
-    #     path, target_size=(img_width, img_height)
-    # )
-    img = image
-    img_array = tf.keras.utils.img_to_array(img)
+    img_array = tf.keras.utils.img_to_array(image)
+    img_array = tf.image.resize(img, [25, 35])
     img_array = tf.expand_dims(img_array, 0)  # Create a batch
 
     # build classifier

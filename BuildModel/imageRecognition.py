@@ -10,6 +10,9 @@ batch_size = 64
 img_height = 188
 img_width = 257
 
+img_height = 25
+img_width = 35
+
 # import data from folders
 (champ_train, champ_test) = keras.utils.image_dataset_from_directory(
     directory='champs',
