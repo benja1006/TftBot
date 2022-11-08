@@ -12,6 +12,7 @@ def get_coords(coords_file):
         for line in file.readlines():
             (key, val) = line.split('=')
             coords[key] = int(val)
+    # print(coords)
     return coords
 
 
@@ -43,7 +44,9 @@ def get_text_from_image(img):
                                        'tessedit_char_whitelist=""').strip()
 
 
-def save_image(img, path):
+def save_image(path, img):
     """Save an image to the desired path  with a random name."""
     name = str(random.randint(1, 100000000)) + '.jpg'
-    cv2.imwrite(os.path.join(path, name), img)
+    print(path, name)
+    path = os.path.join(path, name)
+    cv2.imwrite(path, img)

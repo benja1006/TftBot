@@ -17,7 +17,7 @@ def trPoint(x: int, y: int, window: Window) -> tuple:
     new_y = y/base_height * window.height + window.y
     new_x = x/base_width * window.width + window.x
 
-    return (new_x, new_y)
+    return (int(new_x), int(new_y))
 
 
 def trX(x: int, window: Window) -> int:
@@ -25,14 +25,14 @@ def trX(x: int, window: Window) -> int:
     base_width = 2560
     new_x = x/base_width * window.width + window.x
 
-    return new_x
+    return int(new_x)
 
 
 def trY(y: int, window: Window) -> int:
     """Transform a Y coordinate to the current window."""
     base_height = 1440
     new_y = y/base_height * window.height + window.y
-    return new_y
+    return int(new_y)
 
 
 def get_round(window: Window) -> str:
@@ -42,11 +42,15 @@ def get_round(window: Window) -> str:
                         window)
     bottom, right = trPoint(consts['ROUND_NUM_BOT'], consts['ROUND_NUM_RIGHT'],
                             window)
+    print(top)
+    print(left)
+    print(bottom)
+    print(right)
     image = pyautogui.screenshot()
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     cropped_image = image[top:bottom, left:right]
     # save the image for testing purposes
-    round_path = os.join(os.getcwd(), 'RoundImages')
+    round_path = os.path.join(os.getcwd(), 'RoundImages')
     save_image(round_path, cropped_image)
     roundstr = get_text_from_image(cropped_image)
     print('Current round: ' + roundstr)
@@ -86,6 +90,6 @@ def get_curr_champs(window: Window, interpreter, labels) -> [()]:
     curr_champs = []
     for idx, img in enumerate(images):
         curr_champs.append((gci.predictImage(img, interpreter, labels), idx))
-        champ_path = os.join(os.getcwd(), 'UnsortedChampImages')
+        champ_path = os.path.join(os.getcwd(), 'UnsortedChampImages')
         save_image(champ_path, img)
     return curr_champs
