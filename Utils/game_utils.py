@@ -36,6 +36,5 @@ def get_text_from_image(img):
 def save_image(path, img):
     """Save an image to the desired path  with a random name."""
     name = str(random.randint(1, 100000000)) + '.jpg'
-    print(path, name)
     path = os.path.join(path, name)
     cv2.imwrite(path, img)

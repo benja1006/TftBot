@@ -1,6 +1,6 @@
 """Functions needed for the game to work."""
 from window import Window
-from Utils.game_utils import get_coords, get_text_from_image, save_image
+from Utils.game_utils import get_text_from_image, save_image
 import pyautogui
 import os
 import time
@@ -50,20 +50,14 @@ def get_round(window: Window) -> str:
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     cropped_image = image[top:bottom, left:right]
     roundstr = get_text_from_image(cropped_image)
-    if re.match("/([0-9]-[0-9])/g", roundstr):
-        # save the image for testing purposes
-        round_path = os.path.join(os.getcwd(), 'RoundImages')
-        save_image(round_path, cropped_image)
+    if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
         print('Current round: ' + roundstr)
         return roundstr
     left = trX(sc.ROUND_NUM_START_LEFT, window)
     right = trX(sc.ROUND_NUM_START_RIGHT, window)
     cropped_image = image[top:bottom, left:right]
     roundstr = get_text_from_image(cropped_image)
-    if re.match("/([0-9]-[0-9])/g", roundstr):
-        # save the image for testing purposes
-        round_path = os.path.join(os.getcwd(), 'RoundImages')
-        save_image(round_path, cropped_image)
+    if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
         print('Current round: ' + roundstr)
         return roundstr
 
@@ -90,12 +84,11 @@ def update_tk_loop(tk, wait_time, dPressed):
 def get_curr_champs(window: Window, interpreter, labels) -> [()]:
     """Return the current champs along with which slot they are in."""
     # yTop, yBottom, xLeft, xRight, xSpacing
-    coords = get_coords(os.path.join(os.getcwd(), 'screen_coords.txt'))
-    yTop = trY(coords['CHAMP_TOP'], window)
-    yBottom = trY(coords['CHAMP_BOT'], window)
-    xLeft = trX(coords['CHAMP_LEFT'], window)
-    xRight = trX(coords['CHAMP_RIGHT'], window)
-    xSpacing = trX(coords['CHAMP_SPACING'], window)
+    yTop = trY(sc.CHAMP_TOP, window)
+    yBottom = trY(sc.CHAMP_BOT, window)
+    xLeft = trX(sc.CHAMP_LEFT, window)
+    xRight = trX(sc.CHAMP_RIGHT, window)
+    xSpacing = trX(sc.CHAMP_SPACING, window)
 
     images = gci.screenGrabShop(yTop, yBottom, xLeft, xRight, xSpacing)
     # now classify the images using tf model

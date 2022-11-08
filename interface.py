@@ -4,7 +4,7 @@ import tkinter.ttk as ttk
 import re
 import os
 import Utils.myFuncs as myFuncs
-
+cur_list = []
 
 class MyWindow:
     def __init__(self, win):
@@ -13,7 +13,7 @@ class MyWindow:
         myDict = {}
         dx = 25
         dy = 25
-        cur_list = []
+
         SUNKABLE_BUTTON = 'SunkableButton.TButton'
         style = ttk.Style()
 
@@ -51,8 +51,8 @@ class MyWindow:
                     stop(myDict["button_" + str(i)+str(j)])
 
         # Get list
-        def getList():
-            return cur_list
+    def getList(self):
+        return cur_list
 
 
 def main():

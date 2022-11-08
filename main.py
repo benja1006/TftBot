@@ -4,7 +4,7 @@ import Utils.grabChampImages as gci
 import time
 import interface
 from game import Game
-import pynput as keyboard
+from pynput import keyboard
 
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -16,11 +16,12 @@ def main():
     window = interface.main()
     # ################################ MAIN LOOP ############################ #
     # on shop update
-    game = Game(window)
     with keyboard.Listener(
             on_press=game.on_press,
             on_release=game.on_release) as listener:
         listener.join()
+    game = Game(window)
+
 
 
 def imagePredict(labels, interpreter):
