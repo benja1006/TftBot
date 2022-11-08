@@ -4,6 +4,7 @@ import os
 import screeninfo
 import pytesseract
 import re
+import random
 
 screen = screeninfo.get_monitors()[0]
 cv2.namedWindow("test", cv2.WINDOW_NORMAL)
@@ -40,14 +41,15 @@ for i, img in enumerate(croppedImages):
         text = pytesseract.image_to_string(cropped)
         text = text[0:-1]
         text = re.sub(r'\W+', '', text)
+        new_f_name = str(random.randint(1,100000)) + ".jpg"
         # Move the uncropped file
         if text == "":
             os.rename(imageFullPaths[i], os.path.join(os.getcwd(),
-                      "champs", "unknown", imageNames[i]))
+                      "unknownChamps", new_f_name))
             continue
         newFolder = os.path.join(os.getcwd(), "champs", text)
         if not os.path.isdir(newFolder):
             os.mkdir(newFolder)
-        os.rename(imageFullPaths[i], os.path.join(newFolder, imageNames[i]))
+        os.rename(imageFullPaths[i], os.path.join(newFolder, new_f_name))
 
         # Close the file
