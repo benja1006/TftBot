@@ -42,10 +42,6 @@ def get_round(window: Window) -> str:
                         window)
     bottom, right = trPoint(consts['ROUND_NUM_BOT'], consts['ROUND_NUM_RIGHT'],
                             window)
-    print(top)
-    print(left)
-    print(bottom)
-    print(right)
     image = pyautogui.screenshot()
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     cropped_image = image[top:bottom, left:right]
