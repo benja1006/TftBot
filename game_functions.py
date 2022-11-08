@@ -7,7 +7,6 @@ import time
 import cv2
 import Utils.getChampImages as gci
 import numpy as np
-import tensorflow as tf
 
 
 def trPoint(x: int, y: int, window: Window) -> tuple:

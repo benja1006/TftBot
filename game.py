@@ -11,6 +11,7 @@ class Game:
     """The game class."""
 
     def __init__(self, interface):
+        """Innitiate instance variables and find the TFT window."""
         self.round = "0-0"
         self.roundStatus = "Loading Screen"
         self.found_window = False
@@ -27,6 +28,7 @@ class Game:
         self.loading_screen()
 
     def findWindow(self, hwnd, extra):
+        """Find the League window."""
         if "League of Legends (TM) Client" not in win32gui.GetWindowText(hwnd):
             return
         rect = win32gui.GetWindowRect(hwnd)
@@ -46,12 +48,14 @@ class Game:
         self.found_window = True
 
     def loading_screen(self):
+        """Wait for the loading screen to end."""
         while game_functions.get_round(self.Window) != "1-1":
             game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
             self.dPressed = False
         self.game_loop()
 
     def game_loop(self):
+        """Run the main functions of the bot when in game."""
         # get current desired champs
         self.wanted_champs = self.interface.getList()
         self.round = game_functions.get_round(self.Window)
@@ -69,6 +73,7 @@ class Game:
         self.dPressed = False
 
     def on_press(self, key):
+        """Update dPressed when d is pressed."""
         if not hasattr(key, 'char'):
             return
         if key.char == 'd':
@@ -76,4 +81,5 @@ class Game:
             self.dPressed = True
 
     def on_release(self, key):
+        """Do nothing when a key is released."""
         return

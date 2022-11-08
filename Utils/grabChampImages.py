@@ -1,11 +1,12 @@
+"""Utilities surrounding the screen capture of champions."""
 import tensorflow as tf
 import cv2
 import numpy as np
 import pyautogui
-import screeninfo
 
 
 def screenGrabShop(yTop, yBottom, xLeft, xRight, xSpacing):
+    """Get the images of champs in the shop."""
     xWidth = xRight-xLeft
 
     image = pyautogui.screenshot()
@@ -19,6 +20,7 @@ def screenGrabShop(yTop, yBottom, xLeft, xRight, xSpacing):
 
 
 def predictImage(image, interpreter, class_names):
+    """Predict the champ in a given image."""
     # # get image
     # img_height = 188
     # img_width = 257
@@ -45,6 +47,7 @@ def predictImage(image, interpreter, class_names):
 
 
 def getLabels(labelFile):
+    """Return all labels in order from labels file."""
     f = open(labelFile, 'r')
     labels = [line[0:-1] for line in f]
     return labels

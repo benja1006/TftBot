@@ -1,10 +1,14 @@
+"""Draw rectangles on screen  and print out associated coordinates.
 
+This file should be ran stand-alone.
+"""
 import cv2
 import os
 import screeninfo
 
 
 def onMouse(event, x, y, flags, param):
+    """Run when mouse is has an event."""
     global start_x, start_y, draw
     if event == cv2.EVENT_LBUTTONDOWN:
 

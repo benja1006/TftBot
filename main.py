@@ -1,8 +1,4 @@
-from os import path
-import tensorflow as tf
-# import keras I think this line was the issue
-from tensorflow import keras
-from keras import layers
+"""The main file of the bot."""
 import os
 import Utils.grabChampImages as gci
 import time
@@ -15,6 +11,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
 def main():
+    """Run the bot."""
     print('\n\nrunning...')
     window = interface.main()
     # ################################ MAIN LOOP ############################ #
@@ -27,6 +24,7 @@ def main():
 
 
 def imagePredict(labels, interpreter):
+    """Predict the champ in an image."""
     images = gci.screenGrabShop()
     for image in images:
         gci.predictImage(image, interpreter, labels)
