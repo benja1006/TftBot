@@ -8,20 +8,27 @@ import Utils.grabChampImages as gci
 import time
 import interface
 from game import Game
+import pynput as keyboard
 
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
 def main():
-    TF_MODEL_FILE_PATH = 'model.tflite'
     print('\n\nrunning...')
-    interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)
-    labels = gci.getLabels(os.path.join(os.getcwd(), 'labels.txt'))
     window = interface.main()
     # ################################ MAIN LOOP ############################ #
     # on shop update
     game = Game(window)
+    with keyboard.Listener(
+            on_press=game.on_press,
+            on_release=game.on_release) as listener:
+        listener.join()
+
+    listener = keyboard.Listener(
+        on_press=game.on_press,
+        on_release=game.on_release)
+    listener.start()
 
 
 def imagePredict(labels, interpreter):

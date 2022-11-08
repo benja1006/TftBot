@@ -1,16 +1,24 @@
-'''Handles the gameplay'''
+"""Handles the gameplay."""
 import win32gui
-import time
 from window import Window
 import game_functions
+import Utils.grabChampImages as gci
+import tensorflow as tf
+import os
 
 
 class Game:
+    """The game class."""
+
     def __init__(self, interface):
         self.round = "0-0"
         self.roundStatus = "Loading Screen"
         self.found_window = False
         self.interface = interface
+        self.dPressed = False
+        TF_MODEL_FILE_PATH = 'model.tflite'
+        self.interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)
+        self.labels = gci.getLabels(os.path.join(os.getcwd(), 'labels.txt'))
         print("\n[!] Searching for game window")
         while not self.found_window:
             print("  Did not find window, trying again...")
@@ -39,7 +47,8 @@ class Game:
 
     def loading_screen(self):
         while game_functions.get_round(self.Window) != "1-1":
-            game_functions.update_tk_loop(self.interface.tk, 1)
+            game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
+            self.dPressed = False
         self.game_loop()
 
     def game_loop(self):
@@ -49,9 +58,22 @@ class Game:
         if self.round not in ["0-0", "1-1", "2-4", "3-4", "4-4", "5-4", "6-4",
                               "7-4"]:
             # we are in a regular round
-            curr_champs = game_functions.get_curr_champs(self.Window)
+            curr_champs = game_functions.get_curr_champs(self.Window,
+                                                         self.interpreter,
+                                                         self.labels)
             for champ, idx in curr_champs:
                 if champ in self.wanted_champs:
                     # draw outline around index on overlay
                     print("Buy " + champ + " in the " + str(idx) + "position")
-        game_functions.update_tk_loop(self.interface.tk, 1)
+        game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
+        self.dPressed = False
+
+    def on_press(self, key):
+        if not hasattr(key, 'char'):
+            return
+        if key.char == 'd':
+            print('D Pressed')
+            self.dPressed = True
+
+    def on_release(self, key):
+        return
