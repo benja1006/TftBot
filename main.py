@@ -25,11 +25,6 @@ def main():
             on_release=game.on_release) as listener:
         listener.join()
 
-    listener = keyboard.Listener(
-        on_press=game.on_press,
-        on_release=game.on_release)
-    listener.start()
-
 
 def imagePredict(labels, interpreter):
     images = gci.screenGrabShop()
