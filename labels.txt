@@ -1,9 +1,11 @@
 Ao Shin
 Aphelios
+Aurelion Sol
 Bard
 Braum
 Daeja
 Diana
+Empty
 Ezreal
 Gnar
 Graves
@@ -44,7 +46,6 @@ Taliyah
 Terra
 Twitch
 Tyrant Swain
-unknown
 Varus
 Viadimir
 Volibear
