@@ -5,7 +5,7 @@ import pyautogui
 import os
 import time
 import cv2
-import Utils.getChampImages as gci
+import Utils.grabChampImages as gci
 import numpy as np
 
 

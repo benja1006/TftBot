@@ -60,7 +60,7 @@ def main():
     mywin = MyWindow(window)
     window.title('Champs List')
     window.geometry("800x500+10+10")
-    window.mainloop()
+    # window.mainloop()
     return mywin
 
 
