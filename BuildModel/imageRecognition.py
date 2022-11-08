@@ -1,11 +1,8 @@
+"""Create a model based off of image directory dataset."""
 import numpy as np
 from tensorflow import keras
 import tensorflow as tf
 from keras import layers
-from keras.constraints import maxnorm
-from keras.utils import np_utils
-import os
-import sys
 import matplotlib.pyplot as plt
 
 seed = 35
@@ -118,7 +115,7 @@ plt.plot(epochs_range, val_loss, label='Validation Loss')
 plt.legend(loc='upper right')
 plt.title('Training and Validation Loss')
 plt.show()
-#model.save(os.path.join(os.getcwd(), 'my_model'))
+# model.save(os.path.join(os.getcwd(), 'my_model'))
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
 tflite_model = converter.convert()
 with open('model.tflite', 'wb') as f:

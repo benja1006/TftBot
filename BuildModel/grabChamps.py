@@ -1,3 +1,4 @@
+"""Original champion image capture. Should be depricated."""
 import cv2
 import os
 import screeninfo
@@ -19,21 +20,29 @@ xWidth = int(257 * xRatio)
 xSpacing = int(268 * xRatio)
 shopPath = os.path.join(os.getcwd(), "shopChamps")
 
+
 def screenGrabShop():
-    indexes = [int(os.path.join(shopPath, f)[len(shopPath)+1:-4]) for f in os.listdir(shopPath) if os.path.isfile(os.path.join(shopPath, f))]
+    """Grab champ images from screen."""
+    indexes = [int(os.path.join(shopPath, f)[len(shopPath)+1:-4])
+               for f in os.listdir(shopPath)
+               if os.path.isfile(os.path.join(shopPath, f))]
     currIndex = 0
     if indexes != []:
         currIndex = max(indexes) + 1
     image = pyautogui.screenshot()
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     for i in range(0, 5):
-        champ = image[yTop:yBottom, xStart + i * xSpacing:xStart + xWidth + i * xSpacing]
-        cv2.imwrite(str(os.path.join(shopPath, str(currIndex))) + ".jpg", champ)
+        champ = image[yTop:yBottom, xStart + i * xSpacing:xStart + xWidth +
+                      i * xSpacing]
+        cv2.imwrite(str(os.path.join(shopPath, str(currIndex)))
+                    + ".jpg", champ)
         currIndex += 1
     print(currIndex)
 
+
 # keyboard listening
 def on_press(key):
+    """Run on key press."""
     if not hasattr(key, 'char'):
         return
     if key.char == 'd':
@@ -47,17 +56,11 @@ def on_press(key):
 
 
 def on_release(key):
+    """Do nothing."""
     return
-
 
 
 with keyboard.Listener(
         on_press=on_press,
         on_release=on_release) as listener:
     listener.join()
-
-
-listener = keyboard.Listener(
-    on_press=on_press,
-    on_release=on_release)
-listener.start()
