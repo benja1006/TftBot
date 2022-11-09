@@ -6,6 +6,7 @@ import Utils.grabChampImages as gci
 import tensorflow as tf
 import os
 import re
+from pynput import keyboard
 
 
 class Game:
@@ -18,6 +19,12 @@ class Game:
         self.found_window = False
         self.interface = interface
         self.dPressed = False
+        # Set up keyboard listener
+        # with keyboard.Listener(
+        #         on_press=self.on_press,
+        #         on_release=self.on_release) as listener:
+        #     listener.join()
+
         print('Loading Model...')
         TF_MODEL_FILE_PATH = 'model.tflite'
         self.interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)

@@ -17,12 +17,7 @@ def main():
     window = interface.main()
     # ################################ MAIN LOOP ############################ #
     # on shop update
-    with keyboard.Listener(
-            on_press=game.on_press,
-            on_release=game.on_release) as listener:
-        listener.join()
     game = Game(window)
-
 
 
 def imagePredict(labels, interpreter):

@@ -37,7 +37,7 @@ def trY(y: int, window: Window) -> int:
     return int(new_y)
 
 
-def get_round(window: Window) -> str:
+def get_round(window: Window, game: Game) -> str:
     """Return the current round."""
     # def top bot left right
     top = trY(sc.ROUND_NUM_TOP, window)
@@ -48,11 +48,13 @@ def get_round(window: Window) -> str:
     # grab the screen shot
     image = pyautogui.screenshot()
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+    # try first location
     cropped_image = image[top:bottom, left:right]
     roundstr = get_text_from_image(cropped_image)
     if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
         print('Current round: ' + roundstr)
         return roundstr
+    # try second location
     left = trX(sc.ROUND_NUM_START_LEFT, window)
     right = trX(sc.ROUND_NUM_START_RIGHT, window)
     cropped_image = image[top:bottom, left:right]
@@ -61,6 +63,21 @@ def get_round(window: Window) -> str:
         print('Current round: ' + roundstr)
         return roundstr
 
+    left = trX(sc.ROUND_NUM_HYPERROLL_1_LEFT, window)
+    right = trX(sc.ROUND_NUM_HYPERROLL_1_RIGHT, window)
+    cropped_image = image[top:bottom, left:right]
+    roundstr = get_text_from_image(cropped_image)
+    if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
+        print('Current round: ' + roundstr)
+        return roundstr
+
+    left = trX(sc.ROUND_NUM_HYPERROLL_2_LEFT, window)
+    right = trX(sc.ROUND_NUM_HYPERROLL_2_RIGHT, window)
+    cropped_image = image[top:bottom, left:right]
+    roundstr = get_text_from_image(cropped_image)
+    if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
+        print('Current round: ' + roundstr)
+        return roundstr
     return ""
 
 
