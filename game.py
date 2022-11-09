@@ -77,8 +77,34 @@ class Game:
                     if champ in self.wanted_champs:
                         # draw outline around index on overlay
                         print("Buy " + champ + " in the " + str(idx) + "position")
+
+            win32gui.EnumWindows(self.check_window_closed, None)
+            if self.game_over:
+                self.end_game()
             game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
             self.dPressed = False
+
+
+    def check_window_closed(self, hwnd, extra):
+        if "League of Legends (TM) Client" not in win32gui.GetWindowText(hwnd):
+            self.game_over = True
+
+
+    def end_game(self):
+        """Reset system and return to Loading Screen status."""
+        print('Game has ended. Resetting bot and waiting for next game to '
+              'begin.')
+        self.round = "0-0"
+        self.roundStatus = "Loading Screen"
+        self.found_window = False
+        self.dPressed = False
+        self.interface.reset()
+        print("\n[!] Searching for game window")
+        while not self.found_window:
+            print("  Did not find window, trying again...")
+            win32gui.EnumWindows(self.findWindow, None)
+            game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
+        self.loading_screen()
 
     def on_press(self, key):
         """Update dPressed when d is pressed."""

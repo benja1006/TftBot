@@ -54,6 +54,10 @@ class MyWindow:
     def getList(self):
         return cur_list
 
+    def reset(self):
+        cur_list.clear()
+        clearButtons()
+
 
 def main():
     window = Tk()
