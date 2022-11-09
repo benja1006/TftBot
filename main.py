@@ -5,6 +5,7 @@ import time
 import interface
 from game import Game
 from pynput import keyboard
+import sys
 
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
