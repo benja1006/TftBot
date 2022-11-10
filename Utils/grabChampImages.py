@@ -23,7 +23,7 @@ def predictImage(image, interpreter, class_names):
     """Predict the champ in a given image."""
     # # get image
     img_array = tf.keras.utils.img_to_array(image)
-    img_array = tf.image.resize(img, [25, 35])
+    img_array = tf.image.resize(img_array, [25, 35])
     img_array = tf.expand_dims(img_array, 0)  # Create a batch
 
     # build classifier

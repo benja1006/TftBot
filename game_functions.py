@@ -37,20 +37,23 @@ def trY(y: int, window: Window) -> int:
     return int(new_y)
 
 
-def get_round(window: Window, game: Game) -> str:
+def get_round(window: Window) -> str:
     """Return the current round."""
     # def top bot left right
     top = trY(sc.ROUND_NUM_TOP, window)
     bottom = trY(sc.ROUND_NUM_BOT, window)
     left = trX(sc.ROUND_NUM_LEFT, window)
     right = trX(sc.ROUND_NUM_RIGHT, window)
-
+    photo = False
+    #Make sure the extra screen shots don't mess up normal tft
     # grab the screen shot
     image = pyautogui.screenshot()
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     # try first location
     cropped_image = image[top:bottom, left:right]
     roundstr = get_text_from_image(cropped_image)
+    if photo:
+        save_image(os.path.join(os.getcwd(), 'RoundImages'), cropped_image)
     if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
         print('Current round: ' + roundstr)
         return roundstr
@@ -59,6 +62,8 @@ def get_round(window: Window, game: Game) -> str:
     right = trX(sc.ROUND_NUM_START_RIGHT, window)
     cropped_image = image[top:bottom, left:right]
     roundstr = get_text_from_image(cropped_image)
+    if photo:
+        save_image(os.path.join(os.getcwd(), 'RoundImages'), cropped_image)
     if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
         print('Current round: ' + roundstr)
         return roundstr
@@ -67,6 +72,8 @@ def get_round(window: Window, game: Game) -> str:
     right = trX(sc.ROUND_NUM_HYPERROLL_1_RIGHT, window)
     cropped_image = image[top:bottom, left:right]
     roundstr = get_text_from_image(cropped_image)
+    if photo:
+        save_image(os.path.join(os.getcwd(), 'RoundImages'), cropped_image)
     if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
         print('Current round: ' + roundstr)
         return roundstr
@@ -75,6 +82,8 @@ def get_round(window: Window, game: Game) -> str:
     right = trX(sc.ROUND_NUM_HYPERROLL_2_RIGHT, window)
     cropped_image = image[top:bottom, left:right]
     roundstr = get_text_from_image(cropped_image)
+    if photo:
+        save_image(os.path.join(os.getcwd(), 'RoundImages'), cropped_image)
     if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
         print('Current round: ' + roundstr)
         return roundstr
@@ -112,7 +121,7 @@ def get_curr_champs(window: Window, interpreter, labels) -> [()]:
 
     curr_champs = []
     for idx, img in enumerate(images):
-        curr_champs.append((gci.predictImage(img, interpreter, labels), idx))
+        #curr_champs.append((gci.predictImage(img, interpreter, labels), idx))
         champ_path = os.path.join(os.getcwd(), 'UnsortedChampImages')
         save_image(champ_path, img)
     return curr_champs
