@@ -6,7 +6,8 @@ import Utils.grabChampImages as gci
 import tensorflow as tf
 import os
 import re
-from pynput import keyboard
+import keyboard
+import sys
 
 
 class Game:
@@ -19,11 +20,8 @@ class Game:
         self.found_window = False
         self.interface = interface
         self.dPressed = False
-        # Set up keyboard listener
-        # with keyboard.Listener(
-        #         on_press=self.on_press,
-        #         on_release=self.on_release) as listener:
-        #     listener.join()
+        keyboard.add_hotkey('ctrl+q', self.quit)
+        keyboard.add_hotkey('d', self.on_d_press)
 
         print('Loading Model...')
         TF_MODEL_FILE_PATH = 'model.tflite'
@@ -113,14 +111,9 @@ class Game:
             game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
         self.loading_screen()
 
-    def on_press(self, key):
-        """Update dPressed when d is pressed."""
-        if not hasattr(key, 'char'):
-            return
-        if key.char == 'd':
-            print('D Pressed')
-            self.dPressed = True
-
-    def on_release(self, key):
-        """Do nothing when a key is released."""
-        return
+    def quit(self):
+        sys.exit()
+    
+    def on_d_press(self):
+        self.dPressed = True
+        print("Pressed D")
