@@ -5,3 +5,5 @@ BuildModel/champs/
 .venv/
 UnsortedChampImages/
 BuildModel/unknownChamps/
+Utils/__pycache__
+__pycache__/

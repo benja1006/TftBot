@@ -1,6 +1,6 @@
 """Handles the gameplay."""
 import win32gui
-from window import Window
+from Utils.window import Window
 import game_functions
 import Utils.grabChampImages as gci
 import tensorflow as tf

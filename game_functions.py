@@ -1,5 +1,5 @@
 """Functions needed for the game to work."""
-from window import Window
+from Utils.window import Window
 from Utils.game_utils import get_text_from_image, save_image
 import pyautogui
 import os

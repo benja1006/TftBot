@@ -2,7 +2,7 @@
 import os
 import Utils.grabChampImages as gci
 import time
-import interface
+import Utils.interface
 from game import Game
 from pynput import keyboard
 import sys
@@ -20,11 +20,14 @@ def main():
     game = Game(window)
 
 
-def imagePredict(labels, interpreter):
-    """Predict the champ in an image."""
-    images = gci.screenGrabShop()
-    for image in images:
-        gci.predictImage(image, interpreter, labels)
+
+# def imagePredict(labels, interpreter):
+#     """Predict the champ in an image."""
+#     images = gci.screenGrabShop()
+#     for image in images:
+#         gci.predictImage(image, interpreter, labels)
+
+
 
 
 if __name__ == "__main__":
