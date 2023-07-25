@@ -2,7 +2,7 @@
 import os
 import Utils.grabChampImages as gci
 import time
-import Utils.interface
+import Utils.interface as interface
 from game import Game
 from pynput import keyboard
 import sys

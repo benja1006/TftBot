@@ -1,4 +1,5 @@
 import re
+import os
 
 def add(cur_list, champ):
     cur_list.append(champ)
@@ -6,7 +7,7 @@ def add(cur_list, champ):
 def open_file():
     list_of_lists = [[], [], [], [], []]
     x = 0
-    with open('champ_list.txt') as f:
+    with open(os.path.join(os.getcwd(), 'Utils', 'champ_list.txt')) as f:
         for line in f:
             line = re.sub("[\(\[].*?[\)\]]", "", line)
             line = line.strip()
