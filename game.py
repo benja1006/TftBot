@@ -64,7 +64,7 @@ class Game:
         print('Waiting for loading screen')
         # while game_functions.get_round(self.Window) != "1-1":
         while game_functions.get_round(self.Window) == "":
-            game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
+            game_functions.update_tkQT_loop(self.interface.tk, 1, self.dPressed)
             self.dPressed = False
         print('Loading screen over, currently round:' +
               game_functions.get_round(self.Window))
@@ -111,12 +111,12 @@ class Game:
         self.roundStatus = "Loading Screen"
         self.found_window = False
         self.dPressed = False
-        self.interface.reset()
+        # self.interface.reset()
         print("\n[!] Searching for game window")
         while not self.found_window:
             print("  Did not find window, trying again...")
             win32gui.EnumWindows(self.findWindow, None)
-            game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
+            game_functions.update_tkQT_loop(self.interface.tk, 1, self.dPressed)
         self.loading_screen()
 
     def quit(self):
