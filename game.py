@@ -32,6 +32,7 @@ class Game:
             print("  Did not find window, trying again...")
             win32gui.EnumWindows(self.findWindow, None)
             game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
+            self.check_tk_closed()
         self.loading_screen()
 
     def findWindow(self, hwnd, extra):
@@ -88,6 +89,7 @@ class Game:
                 self.end_game()
             game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
             self.dPressed = False
+            self.check_tk_closed()
 
 
     def check_window_closed(self, hwnd, extra):
@@ -117,3 +119,8 @@ class Game:
     def on_d_press(self):
         self.dPressed = True
         print("Pressed D")
+    
+    def check_tk_closed(self):
+        if self.interface.closed:
+            print('Interface has been closed. Quitting...')
+            self.quit()

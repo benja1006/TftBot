@@ -13,6 +13,7 @@ class MyWindow:
         myDict = {}
         dx = 25
         dy = 25
+        self.closed = False
 
         SUNKABLE_BUTTON = 'SunkableButton.TButton'
         style = ttk.Style()
@@ -50,7 +51,10 @@ class MyWindow:
                 for i in range(len(champ_list[j])):
                     stop(myDict["button_" + str(i)+str(j)])
 
-        # Get list
+    def close(self):
+        self.closed = True
+
+    # Get list
     def getList(self):
         return cur_list
 
@@ -64,6 +68,7 @@ def main():
     mywin = MyWindow(window)
     window.title('Champs List')
     window.geometry("800x500+10+10")
+    window.protocol("WM_DELETE_WINDOW", mywin.close)
     # window.mainloop()
     return mywin
 
