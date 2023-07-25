@@ -83,10 +83,6 @@ class Game:
                 curr_champs = game_functions.get_curr_champs(self.Window,
                                                              self.interpreter,
                                                              self.labels)
-                # for champ, idx in curr_champs:
-                #     if champ in self.wanted_champs:
-                #         # draw outline around index on overlay
-                #         print("Buy " + champ + " in the " + str(idx) + "position")
                 self.overlay.curr_shop = curr_champs
                 self.overlay.target_champs = self.wanted_champs
 

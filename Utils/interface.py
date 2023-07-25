@@ -33,7 +33,7 @@ class MyWindow:
 
         # Clear list button
         clear_list = Button(win, text="clear", command=lambda: [
-                            cur_list.clear(), self.clearButtons()])
+                            cur_list.clear(), clearButtons()])
         clear_list.place(x=500, y=400)
 
         # Pressed Button
