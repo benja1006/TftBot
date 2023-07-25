@@ -107,7 +107,7 @@ def update_tk_loop(tk, wait_time, dPressed):
         time.sleep(.1)
 
 
-def get_curr_champs(window: Window, interpreter, labels) -> List[tuple]:
+def get_curr_champs(window: Window, interpreter, labels):
     """Return the current champs along with which slot they are in."""
     # yTop, yBottom, xLeft, xRight, xSpacing
     yTop = trY(sc.CHAMP_TOP, window)

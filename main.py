@@ -7,9 +7,7 @@ from game import Game
 from pynput import keyboard
 import sys
 
-
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
 
 def main():
     """Run the bot."""
@@ -19,16 +17,11 @@ def main():
     # on shop update
     game = Game(window)
 
-
-
 # def imagePredict(labels, interpreter):
 #     """Predict the champ in an image."""
 #     images = gci.screenGrabShop()
 #     for image in images:
 #         gci.predictImage(image, interpreter, labels)
-
-
-
 
 if __name__ == "__main__":
     time.sleep(5)
