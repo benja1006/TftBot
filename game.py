@@ -8,6 +8,7 @@ import os
 import re
 import keyboard
 import sys
+import overlay
 
 
 class Game:
@@ -31,7 +32,7 @@ class Game:
         while not self.found_window:
             print("  Did not find window, trying again...")
             win32gui.EnumWindows(self.findWindow, None)
-            game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
+            game_functions.update_tkQT_loop(self.interface.tk, 1, self.dPressed)
             self.check_tk_closed()
         self.loading_screen()
 
@@ -54,6 +55,9 @@ class Game:
         print(f"    Size:     ({width}, {height})")
         self.Window = Window(x_pos, y_pos, width, height)
         self.found_window = True
+        sc = width / 2560
+        self.overlay = overlay.main(sc)
+        print("running main")
 
     def loading_screen(self):
         """Wait for the loading screen to end."""
@@ -79,15 +83,17 @@ class Game:
                 curr_champs = game_functions.get_curr_champs(self.Window,
                                                              self.interpreter,
                                                              self.labels)
-                for champ, idx in curr_champs:
-                    if champ in self.wanted_champs:
-                        # draw outline around index on overlay
-                        print("Buy " + champ + " in the " + str(idx) + "position")
+                # for champ, idx in curr_champs:
+                #     if champ in self.wanted_champs:
+                #         # draw outline around index on overlay
+                #         print("Buy " + champ + " in the " + str(idx) + "position")
+                self.overlay.curr_shop = curr_champs
+                self.overlay.target_champs = self.wanted_champs
 
             win32gui.EnumWindows(self.check_window_closed, None)
             if self.game_over:
                 self.end_game()
-            game_functions.update_tk_loop(self.interface.tk, 1, self.dPressed)
+            game_functions.update_tkQT_loop(self.interface.tk, 1, self.dPressed, self.overlay)
             self.dPressed = False
             self.check_tk_closed()
 

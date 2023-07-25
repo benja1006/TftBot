@@ -96,12 +96,14 @@ def update_tk(tk):
     tk.update_idletasks()
 
 
-def update_tk_loop(tk, wait_time, dPressed):
+def update_tkQT_loop(tk, wait_time, dPressed, QT=None):
     """Continuously update the tk window for duration of wait_time."""
     for i in range(wait_time*10):
         # break this loop if the d key is pressed
         tk.update()
         tk.update_idletasks()
+        if QT:
+            QT.update()
         if dPressed:
             break
         time.sleep(.1)
@@ -117,11 +119,14 @@ def get_curr_champs(window: Window, interpreter, labels):
     xSpacing = trX(sc.CHAMP_SPACING, window)
 
     images = gci.screenGrabShop(yTop, yBottom, xLeft, xRight, xSpacing)
+    if not os.path.exists(os.path.join(os.getcwd(), 'UnsortedChampImages')):
+            os.mkdir(os.path.join(os.getcwd(), 'UnsortedChampImages'))
     # now classify the images using tf model
-
+    
     curr_champs = []
     for idx, img in enumerate(images):
         #curr_champs.append((gci.predictImage(img, interpreter, labels), idx))
+        
         champ_path = os.path.join(os.getcwd(), 'UnsortedChampImages')
         save_image(champ_path, img)
     return curr_champs

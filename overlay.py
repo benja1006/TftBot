@@ -19,10 +19,14 @@ curr_shop = ['a', 'b', 'EMPTY', 'EMPTY', 'EMPTY']
 
 class CustomWindow(QMainWindow):
     keyPressed = pyqtSignal(KeyCode)
-
-    def __init__(self, parent=None):
+    
+    def __init__(self, app, sc, parent=None):
         super().__init__(parent)
         self.listener = Listener(on_release=self.on_release)
+        self.app = app
+        self.sc = sc
+        self.target_champs = []
+        self.curr_shop = []
 
     def on_release(self, key):
         try: 
@@ -56,46 +60,49 @@ class CustomWindow(QMainWindow):
         painter1.setOpacity(opc)
         painter1.setPen(QPen(Qt.red,  5, Qt.SolidLine))
 
-        # Resolution scale
-        sc = 0.75
 
-        for idx, champ in enumerate(curr_shop):
-            if champ in target_champs:
-                spacing = round(screen_coords.CHAMP_SPACING * sc)
-                x = round(screen_coords.CHAMP_LEFT * sc)
-                y = round(screen_coords.CHAMP_TOP * sc)
-                height = round((screen_coords.CHAMP_BOT * sc) - (screen_coords.CHAMP_TOP * sc))
-                width = round((screen_coords.CHAMP_RIGHT * sc) - (screen_coords.CHAMP_LEFT * sc))
+        for idx, champ in enumerate(self.curr_shop):
+            if champ in self.target_champs:
+                spacing = round(screen_coords.CHAMP_SPACING * self.sc)
+                x = round(screen_coords.CHAMP_LEFT * self.sc)
+                y = round(screen_coords.CHAMP_TOP * self.sc)
+                height = round((screen_coords.CHAMP_BOT * self.sc) - (screen_coords.CHAMP_TOP * self.sc))
+                width = round((screen_coords.CHAMP_RIGHT * self.sc) - (screen_coords.CHAMP_LEFT * self.sc))
                 painter1.drawRect(x + (spacing * idx), y, width, height)
 
-app = QApplication(sys.argv)
-# Create the main window
-window = CustomWindow()
-window.setWindowFlags(Qt.FramelessWindowHint)
-window.setAttribute(Qt.WA_NoSystemBackground, True)
-window.setAttribute(Qt.WA_TranslucentBackground, True)
-window.start_monitoring()
+def main(sc):
+    app = QApplication(sys.argv)
+    # Create the main window
+    window = CustomWindow(app, sc)
+    window.setWindowFlags(Qt.FramelessWindowHint)
+    window.setAttribute(Qt.WA_NoSystemBackground, True)
+    window.setAttribute(Qt.WA_TranslucentBackground, True)
+    window.start_monitoring()
 
-# Create the button
-pushButton = QPushButton(window)
-pushButton.setGeometry(QRect(240, 190, 90, 31))
-pushButton.setText("Finished")
-pushButton.clicked.connect(app.quit)
+    # Create the button
+    pushButton = QPushButton(window)
+    pushButton.setGeometry(QRect(240, 190, 90, 31))
+    pushButton.setText("Finished")
+    pushButton.clicked.connect(app.quit)
 
-# Center the button
-qr = pushButton.frameGeometry()
-cp = QDesktopWidget().availableGeometry().center()
-qr.moveCenter(cp)
-pushButton.move(qr.topLeft())
+    # Center the button
+    qr = pushButton.frameGeometry()
+    cp = QDesktopWidget().availableGeometry().center()
+    qr.moveCenter(cp)
+    pushButton.move(qr.topLeft())
 
-# Run the application
-window.showFullScreen()
+    # Run the application
+    window.showFullScreen()
 
-# Enable Always On Top from Power Toys
-pyautogui.keyDown("ctrl")
-pyautogui.keyDown("winleft")
-pyautogui.press("t")
-pyautogui.keyUp("ctrl")
-pyautogui.keyUp("winleft")
+    # Enable Always On Top from Power Toys
+    pyautogui.keyDown("ctrl")
+    pyautogui.keyDown("winleft")
+    pyautogui.press("t")
+    pyautogui.keyUp("ctrl")
+    pyautogui.keyUp("winleft")
+    # app.exec_()
+    # sys.exit(app.exec_())
+    return window
 
-sys.exit(app.exec_())
+if __name__ == "__main__":
+    main(1)

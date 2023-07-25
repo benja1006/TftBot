@@ -13,6 +13,7 @@ def main():
     """Run the bot."""
     print('\n\nrunning...')
     window = interface.main()
+
     # ################################ MAIN LOOP ############################ #
     # on shop update
     game = Game(window)
