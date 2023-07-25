@@ -4,62 +4,62 @@ import tkinter.ttk as ttk
 import re
 import os
 import Utils.myFuncs as myFuncs
-cur_list = []
+SUNKABLE_BUTTON = 'SunkableButton.TButton'
 
 class MyWindow:
     def __init__(self, win):
         self.tk = win
-        champ_list = myFuncs.open_file()
-        myDict = {}
+        self.champ_list = myFuncs.open_file()
+        self.myDict = {}
         dx = 25
         dy = 25
         self.closed = False
-
-        SUNKABLE_BUTTON = 'SunkableButton.TButton'
-        style = ttk.Style()
+        self.cur_list = []
+        
+        self.style = ttk.Style()
 
         # Create buttons
         for j in range(0, 5):  # 1 costs
-            for i in range(len(champ_list[j])):
-                champ = champ_list[j][i]
-                myDict["button_" + str(i)+str(j)] = ttk.Button(win, text=champ_list[j][i], command=lambda i=i, j=j: [
-                    myFuncs.add(cur_list, champ_list[j][i]), start(myDict["button_" + str(i)+str(j)])], style=SUNKABLE_BUTTON)
-                myDict["button_" + str(i)+str(j)].place(x=dx * (j*5), y=dy * i)
+            for i in range(len(self.champ_list[j])):
+                champ = self.champ_list[j][i]
+                self.myDict["button_" + str(i)+str(j)] = ttk.Button(win, text=self.champ_list[j][i], command=lambda i=i, j=j: [
+                    myFuncs.add(self.cur_list, self.champ_list[j][i]), self.start(self.myDict["button_" + str(i)+str(j)])], style=SUNKABLE_BUTTON)
+                self.myDict["button_" + str(i)+str(j)].place(x=dx * (j*5), y=dy * i)
 
         # Print list button
         print_list = Button(win, text='print',
-                            command=lambda: print(cur_list))
+                            command=lambda: print(self.cur_list))
         print_list.place(x=400, y=400)
 
         # Clear list button
         clear_list = Button(win, text="clear", command=lambda: [
-                            cur_list.clear(), clearButtons()])
+                            self.cur_list.clear(), self.clearButtons()])
         clear_list.place(x=500, y=400)
 
-        # Pressed Button
-        def start(button):
-            button.state(['pressed', 'disabled'])
-            style.configure(SUNKABLE_BUTTON, relief=tk.SUNKEN)
+    # Pressed Button
+    def start(self, button):
+        button.state(['pressed', 'disabled'])
+        self.style.configure(SUNKABLE_BUTTON, relief=tk.SUNKEN)
 
-        # Depressed Button
-        def stop(button):
-            button.state(['!pressed', '!disabled'])
-            style.configure(SUNKABLE_BUTTON, relief=tk.RAISED)
+    # Depressed Button
+    def stop(self, button):
+        button.state(['!pressed', '!disabled'])
+        self.style.configure(SUNKABLE_BUTTON, relief=tk.RAISED)
 
-        def clearButtons():
-            for j in range(0, 5):  # 1 costs
-                for i in range(len(champ_list[j])):
-                    stop(myDict["button_" + str(i)+str(j)])
+    def clearButtons(self):
+        for j in range(0, 5):  # 1 costs
+            for i in range(len(self.champ_list[j])):
+                self.stop(self.myDict["button_" + str(i)+str(j)])
 
     def close(self):
         self.closed = True
 
     # Get list
     def getList(self):
-        return cur_list
+        return self.cur_list
 
     def reset(self):
-        cur_list.clear()
+        self.cur_list.clear()
         MyWindow.clearButtons()
 
 

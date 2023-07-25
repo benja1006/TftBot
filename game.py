@@ -107,7 +107,7 @@ class Game:
         self.roundStatus = "Loading Screen"
         self.found_window = False
         self.dPressed = False
-        # self.interface.reset()
+        self.interface.reset()
         print("\n[!] Searching for game window")
         while not self.found_window:
             print("  Did not find window, trying again...")
