@@ -87,6 +87,15 @@ def get_round(window: Window) -> str:
     if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
         print('Current round: ' + roundstr)
         return roundstr
+    left = trX(sc.ROUND_NUM_HYPERROLL_3_LEFT, window)
+    right = trX(sc.ROUND_NUM_HYPERROLL_3_RIGHT, window)
+    cropped_image = image[top:bottom, left:right]
+    roundstr = get_text_from_image(cropped_image)
+    if photo:
+        save_image(os.path.join(os.getcwd(), 'RoundImages'), cropped_image)
+    if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
+        print('Current round: ' + roundstr)
+        return roundstr
     return ""
 
 

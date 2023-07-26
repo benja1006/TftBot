@@ -73,13 +73,16 @@ class Game:
     def game_loop(self):
         """Run the main functions of the bot when in game."""
         # get current desired champs
-
+        self.updated = False
         while True: #FIXME Really need to do something better here.
             self.wanted_champs = self.interface.getList()
             new_round = game_functions.get_round(self.Window)
+
             if new_round != self.round:
+                print("round updated from", self.round, "to", new_round)
                 self.updated = True
                 self.round = new_round
+                
             if self.round not in ["0-0", "1-1", "2-4", "3-4", "4-4", "5-4", "6-4",
                                   "7-4"]:
                 # we are in a regular round
