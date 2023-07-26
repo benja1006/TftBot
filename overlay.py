@@ -95,11 +95,13 @@ def main(sc):
     window.showFullScreen()
 
     # Enable Always On Top from Power Toys
+    '''
     pyautogui.keyDown("ctrl")
     pyautogui.keyDown("winleft")
     pyautogui.press("t")
     pyautogui.keyUp("ctrl")
     pyautogui.keyUp("winleft")
+    '''
     # app.exec_()
     # sys.exit(app.exec_())
     return window
