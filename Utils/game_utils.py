@@ -4,7 +4,8 @@ import pytesseract
 import random
 import os
 
-# pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Jorda\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
+if os.getlogin() == 'Jorda':
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Jorda\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
 def get_text_from_image(img):
     """Return the text in the image."""
