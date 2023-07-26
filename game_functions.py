@@ -39,21 +39,12 @@ def trY(y: int, window: Window) -> int:
 
 def get_round(window: Window) -> str:
     """Return the current round."""
-    hyperroll = False
-    if hyperroll:
-        # CHANGE PIXEL POSITIONS
-        top = trY(sc.ROUND_NUM_TOP, window)
-        bottom = trY(sc.ROUND_NUM_BOT, window)
-        left = trX(sc.ROUND_NUM_LEFT, window)
-        right = trX(sc.ROUND_NUM_RIGHT, window)
-        photo = False
-    # def top bot left right
-    else: 
-        top = trY(sc.ROUND_NUM_TOP, window)
-        bottom = trY(sc.ROUND_NUM_BOT, window)
-        left = trX(sc.ROUND_NUM_LEFT, window)
-        right = trX(sc.ROUND_NUM_RIGHT, window)
-        photo = False
+    
+    top = trY(sc.ROUND_NUM_TOP, window)
+    bottom = trY(sc.ROUND_NUM_BOT, window)
+    left = trX(sc.ROUND_NUM_LEFT, window)
+    right = trX(sc.ROUND_NUM_RIGHT, window)
+    photo = False
     #Make sure the extra screen shots don't mess up normal tft
     # grab the screen shot
     image = pyautogui.screenshot()

@@ -6,7 +6,7 @@ import pytesseract
 import re
 import random
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Jorda\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
+# pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Jorda\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
 screen = screeninfo.get_monitors()[0]
 cv2.namedWindow("test", cv2.WINDOW_NORMAL)
