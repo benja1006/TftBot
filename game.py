@@ -95,6 +95,8 @@ class Game:
 
 
     def check_window_closed(self, hwnd, extra):
+        for window in win32gui.GetWindowText(hwnd):
+            print(window)
         if "League of Legends (TM) Client" not in win32gui.GetWindowText(hwnd):
             self.game_over = True
 
@@ -108,6 +110,7 @@ class Game:
         self.found_window = False
         self.dPressed = False
         self.interface.reset()
+        self.overlay.app.quit()
         print("\n[!] Searching for game window")
         while not self.found_window:
             print("  Did not find window, trying again...")

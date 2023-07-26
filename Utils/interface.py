@@ -60,7 +60,7 @@ class MyWindow:
 
     def reset(self):
         self.cur_list.clear()
-        MyWindow.clearButtons()
+        self.clearButtons()
 
 
 def main():
