@@ -76,13 +76,21 @@ class Game:
 
         while True: #FIXME Really need to do something better here.
             self.wanted_champs = self.interface.getList()
-            self.round = game_functions.get_round(self.Window)
+            new_round = game_functions.get_round(self.Window)
+            if new_round != self.round:
+                self.updated = True
+                self.round = new_round
             if self.round not in ["0-0", "1-1", "2-4", "3-4", "4-4", "5-4", "6-4",
                                   "7-4"]:
                 # we are in a regular round
-                curr_champs = game_functions.get_curr_champs(self.Window,
-                                                             self.interpreter,
-                                                             self.labels)
+
+                # now check if the round has changed or d has been pressed
+                if self.updated:
+
+                    curr_champs = game_functions.get_curr_champs(self.Window,
+                                                                self.interpreter,
+                                                                self.labels)
+                    self.updated = False
                 self.overlay.curr_shop = curr_champs
                 self.overlay.target_champs = self.wanted_champs
 
@@ -90,6 +98,8 @@ class Game:
             # if self.game_over:
             #     self.end_game()
             game_functions.update_tkQT_loop(self.interface.tk, 1, self.dPressed, self.overlay)
+            if self.dPressed:
+                self.updated = True
             self.dPressed = False
             self.check_tk_closed()
 
