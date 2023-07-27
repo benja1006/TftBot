@@ -4,6 +4,7 @@ from tensorflow import keras
 import tensorflow as tf
 from keras import layers
 import matplotlib.pyplot as plt
+import os
 
 seed = 35
 batch_size = 64
@@ -15,7 +16,7 @@ img_width = 35
 
 # import data from folders
 (champ_train, champ_test) = keras.utils.image_dataset_from_directory(
-    directory='champs',
+    directory=os.path.join(os.getcwd(), 'BuildModel', 'champs'),
     labels='inferred',
     image_size=(img_width, img_height),
     seed=seed,

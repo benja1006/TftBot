@@ -13,7 +13,7 @@ cv2.namedWindow("test", cv2.WINDOW_NORMAL)
 # cv2.moveWindow("test", screen.x - 1, screen.y - 1)
 # cv2.setWindowProperty("test", 0, 1)
 draw = False
-imageDirectory = os.path.join(os.getcwd(), "shopChamps")
+imageDirectory = os.path.join(os.getcwd(), "UnsortedChampImages")
 imageNames = [f for f in os.listdir(imageDirectory)
               if os.path.isfile(os.path.join(imageDirectory, f))]
 imageFullPaths = [os.path.join(imageDirectory, f) for f in imageNames]
@@ -46,10 +46,14 @@ for i, img in enumerate(croppedImages):
         new_f_name = str(random.randint(1,100000)) + ".jpg"
         # Move the uncropped file
         if text == "":
+            assert os.path.exists(imageFullPaths[i])
+            # assert os.path.exists(os.path.join(os.getcwd(),
+            #           "BuildModel", "unknownChamps", new_f_name))
             os.rename(imageFullPaths[i], os.path.join(os.getcwd(),
-                      "unknownChamps", new_f_name))
+                      "BuildModel", "unknownChamps", new_f_name))
             continue
-        newFolder = os.path.join(os.getcwd(), "champs", text)
+        
+        newFolder = os.path.join(os.getcwd(), "BuildModel", "champs", text)
         if not os.path.isdir(newFolder):
             os.mkdir(newFolder)
         os.rename(imageFullPaths[i], os.path.join(newFolder, new_f_name))
