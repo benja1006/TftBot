@@ -44,5 +44,15 @@ def predictImage(image, interpreter, class_names):
 def getLabels(labelFile):
     """Return all labels in order from labels file."""
     f = open(labelFile, 'r')
-    labels = [line[0:-1] for line in f]
+    cost = 0
+    labels = []
+    for line in f:
+        if line == '':
+            continue
+        if line[0].isnumeric():
+            cost = line[0]
+            continue
+        name = line.split('(')[0]
+        labels.append(name)
+    labels.sort()
     return labels
