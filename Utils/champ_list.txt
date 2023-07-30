@@ -71,3 +71,9 @@ K'Sante(Shurima, Bastion)
 Ryze(Wanderer, Invoker)
 Senna(Shadow Isles, Gunner, Redeemer)
 Sion(Noxus, Bruiser)
+
+6_Cost
+
+Mechano-Swarm()
+Repair-O-Matic()
+Shrink Module()
