@@ -26,7 +26,8 @@ class Game:
 
         print('Loading Model...')
         TF_MODEL_FILE_PATH = 'model.tflite'
-        self.interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)
+        # self.interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)
+        self.interpreter = None
         self.labels = gci.getLabels(os.path.join(os.getcwd(), 'Utils', 'champ_list.txt'))
         print("\n[!] Searching for game window")
         while not self.found_window:
