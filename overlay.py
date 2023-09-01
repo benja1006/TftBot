@@ -22,12 +22,12 @@ class CustomWindow(QMainWindow):
     
     def __init__(self, app, sc, parent=None):
         super().__init__(parent)
-        self.listener = Listener(on_release=self.on_release)
+        # self.listener = Listener(on_release=self.on_release)
         self.app = app
         self.sc = sc
         self.target_champs = []
         self.curr_shop = []
-
+    ''' 
     def on_release(self, key):
         try: 
             self.keyPressed.emit(key)
@@ -46,6 +46,10 @@ class CustomWindow(QMainWindow):
 
     def start_monitoring(self):
         self.listener.start()
+    '''
+    def updateOverlay(self):
+        self.update()
+        return
 
     def paintEvent(self, event=None):
         # Window painter
