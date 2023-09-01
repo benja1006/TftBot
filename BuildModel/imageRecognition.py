@@ -66,13 +66,27 @@ champ_test = champ_test.cache().prefetch(buffer_size=AUTOTUNE)
 
 # print('Dimensions of image:', first_image.shape)
 
+data_normalization = keras.Sequential(
+    [
+        layers.BatchNormalization()
+    ]
+)
+data_augmentation = keras.Sequential(
+    [
+        layers.RandomFlip("horizontal_and_vertical"),
+        layers.RandomRotation(0.2),
+        layers.GaussianNoise(0.1),
 
+    ]
+)
 # create model
 
 num_classes = len(champ_names)
 
 
 model = keras.Sequential([
+    data_normalization,
+    data_augmentation,
     layers.Rescaling(1./255, input_shape=(img_width, img_height, 3)),
     layers.Conv2D(16, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
@@ -89,6 +103,7 @@ model.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(
                   from_logits=True),
               metrics=['accuracy'])
+model.build((batch_size, img_width, img_height, 3))
 
 # summerize model
 model.summary()
