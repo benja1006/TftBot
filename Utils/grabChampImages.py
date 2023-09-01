@@ -10,7 +10,7 @@ def screenGrabShop(yTop, yBottom, xLeft, xRight, xSpacing):
     xWidth = xRight-xLeft
 
     image = pyautogui.screenshot()
-    image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+    image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
     images = []
     for i in range(0, 5):
         champ = image[yTop:yBottom, xLeft + i * xSpacing:xLeft + xWidth +

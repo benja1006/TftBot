@@ -50,14 +50,21 @@ AUTOTUNE = tf.data.AUTOTUNE
 champ_train = champ_train.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
 champ_test = champ_test.cache().prefetch(buffer_size=AUTOTUNE)
 
-# rescale the images RGB values to be between 0 and 1
-normalization_layer = keras.layers.Rescaling(1./255)
 
-normalized_ds = champ_train.map(lambda x, y: (normalization_layer(x), y))
-image_batch, labels_batch = next(iter(normalized_ds))
-first_image = image_batch[0]
-# Notice the pixel values are now in `[0,1]`.
-print(np.min(first_image), np.max(first_image))
+# *** All this rescaling is done in line 1 of the model ***
+
+# rescale the images RGB values to be between 0 and 1
+# normalization_layer = keras.layers.Rescaling(1./255)
+# champ_train = tf.keras.utils.normalize(champ_train, axis=1)
+
+
+# normalized_ds = champ_train.map(lambda x, y: (normalization_layer(x), y))
+# image_batch, labels_batch = next(iter(normalized_ds))
+# first_image = image_batch[0]
+# # Notice the pixel values are now in `[0,1]`.
+# print(np.min(first_image), np.max(first_image))
+
+# print('Dimensions of image:', first_image.shape)
 
 
 # create model
