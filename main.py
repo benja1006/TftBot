@@ -6,6 +6,7 @@ import Utils.interface as interface
 from game import Game
 from pynput import keyboard
 import sys
+import argparse
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -25,5 +26,7 @@ def main():
 #         gci.predictImage(image, interpreter, labels)
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-m', '--mode', help='Run without game', choices=['no_game'], required=False)
     time.sleep(5)
     main()

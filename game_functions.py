@@ -134,8 +134,9 @@ def get_curr_champs(window: Window, interpreter, labels):
     
     curr_champs = []
     for idx, img in enumerate(images):
-        curr_champs.append((gci.predictImage(img, interpreter, labels), idx))
+        champ_name = gci.predictImage(img, interpreter, labels)
+        curr_champs.append((champ_name, idx))
         
         champ_path = os.path.join(os.getcwd(), 'UnsortedChampImages')
-        save_image(champ_path, img)
+        save_image(champ_path, img, champ_name)
     return curr_champs

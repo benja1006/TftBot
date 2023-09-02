@@ -35,8 +35,9 @@ def get_text_from_image(img):
                                        'tessedit_char_whitelist=""').strip()
 
 
-def save_image(path, img):
+def save_image(path, img, name=''):
     """Save an image to the desired path  with a random name."""
-    name = str(random.randint(1, 100000000)) + '.jpg'
+    
+    name += str(random.randint(1, 100000000)) + '.jpg'
     path = os.path.join(path, name)
     cv2.imwrite(path, img)
