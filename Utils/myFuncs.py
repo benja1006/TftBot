@@ -28,6 +28,9 @@ def open_file():
             if (line == "5_cost"):
                 x = 4
                 continue
+            if (line == "6_cost"):
+                x = 5
+                continue
 
             list_of_lists[x].append(line)
     return list_of_lists

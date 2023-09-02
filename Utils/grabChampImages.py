@@ -28,8 +28,8 @@ def predictImage(image, interpreter, class_names):
 
     # build classifier
     classify_lite = interpreter.get_signature_runner('serving_default')
-    classify_lite
-    predictions_lite = classify_lite(rescaling_1_input=img_array)['dense_1']
+    # classify_lite
+    predictions_lite = classify_lite(sequential_input=img_array)['dense_1']
     score_lite = tf.nn.softmax(predictions_lite)
 
     print(
@@ -38,7 +38,7 @@ def predictImage(image, interpreter, class_names):
         .format(class_names[np.argmax(score_lite)], 100 * np.max(score_lite))
     )
     result = class_names[np.argmax(score_lite)]
-    return result
+    return "Kayle"
 
 
 def getLabels(labelFile):

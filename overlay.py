@@ -11,12 +11,6 @@ import pyautogui
 global opc
 opc = 1
 
-global target_champs
-target_champs = ['a','b']
-
-global curr_shop
-curr_shop = ['a', 'b', 'EMPTY', 'EMPTY', 'EMPTY']
-
 class CustomWindow(QMainWindow):
     keyPressed = pyqtSignal(KeyCode)
     
@@ -65,11 +59,7 @@ class CustomWindow(QMainWindow):
         painter1.setOpacity(opc)
         painter1.setPen(QPen(Qt.red,  5, Qt.SolidLine))
 
-        print("current shop: ", self.curr_shop)
-        print("target champs: ", self.target_champs)
         for idx, champ in enumerate(self.curr_shop):
-
-
             if champ in self.target_champs:
                 spacing = round(screen_coords.CHAMP_SPACING * self.sc)
                 x = round(screen_coords.CHAMP_LEFT * self.sc)
@@ -103,13 +93,13 @@ def main(sc):
     window.showFullScreen()
 
     # Enable Always On Top from Power Toys
-    '''
+
     pyautogui.keyDown("ctrl")
     pyautogui.keyDown("winleft")
     pyautogui.press("t")
     pyautogui.keyUp("ctrl")
     pyautogui.keyUp("winleft")
-    '''
+
     # app.exec_()
     # sys.exit(app.exec_())
     return window
