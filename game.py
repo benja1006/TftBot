@@ -138,7 +138,7 @@ class Game:
     
     def on_d_press(self):
         self.dPressed = True
-        self.overlay.updateOverlay()
+        # self.overlay.updateOverlay()
         print("Pressed D")
     
     def check_tk_closed(self):

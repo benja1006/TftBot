@@ -16,12 +16,12 @@ class CustomWindow(QMainWindow):
     
     def __init__(self, app, sc, parent=None):
         super().__init__(parent)
-        # self.listener = Listener(on_release=self.on_release)
+        self.listener = Listener(on_release=self.on_release)
         self.app = app
         self.sc = sc
         self.target_champs = []
         self.curr_shop = []
-    ''' 
+
     def on_release(self, key):
         try: 
             self.keyPressed.emit(key)
@@ -30,9 +30,6 @@ class CustomWindow(QMainWindow):
         
         if key.char == 'd':
             # Champ Checking Occurs Here
-            global curr_shop
-            curr_shop = ['a', 'EMPTY', 'EMPTY', 'b', 'EMPTY']
-
             self.update()
 
     def stop_monitoring(self):
@@ -40,14 +37,18 @@ class CustomWindow(QMainWindow):
 
     def start_monitoring(self):
         self.listener.start()
-    '''
-    def updateOverlay(self):
-        self.update()
-        print("Ive updated!")
-        return
+
+    # def updateOverlay(self):
+    #     self.update()
+    #     print("Ive updated!")
+    #     return
 
     def paintEvent(self, event=None):
         # Window painter
+        print("Paint Event")
+        print("current_shop: ", self.curr_shop)
+        print("target_champs: ", self.target_champs)
+
         painter = QPainter(self)
         painter.setOpacity(0)
         painter.setBrush(Qt.white)
@@ -59,8 +60,11 @@ class CustomWindow(QMainWindow):
         painter1.setOpacity(opc)
         painter1.setPen(QPen(Qt.red,  5, Qt.SolidLine))
 
+        print("self.target_champs: ", self.target_champs)
         for idx, champ in enumerate(self.curr_shop):
-            if champ in self.target_champs:
+            print("Champ: ", champ)
+            
+            if champ[0] in self.target_champs:
                 spacing = round(screen_coords.CHAMP_SPACING * self.sc)
                 x = round(screen_coords.CHAMP_LEFT * self.sc)
                 y = round(screen_coords.CHAMP_TOP * self.sc)
@@ -75,7 +79,7 @@ def main(sc):
     window.setWindowFlags(Qt.FramelessWindowHint)
     window.setAttribute(Qt.WA_NoSystemBackground, True)
     window.setAttribute(Qt.WA_TranslucentBackground, True)
-    # window.start_monitoring()
+    window.start_monitoring()
 
     # Create the button
     pushButton = QPushButton(window)

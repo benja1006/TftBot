@@ -111,9 +111,9 @@ def update_tkQT_loop(tk, wait_time, dPressed, QT=None):
         # break this loop if the d key is pressed
         tk.update()
         tk.update_idletasks()
-        if QT:
-            QT.update()
         if dPressed:
+            if QT:
+                QT.update()
             break
         time.sleep(.1)
 
