@@ -27,8 +27,9 @@ class Game:
         print('Loading Model...')
         TF_MODEL_FILE_PATH = 'model.tflite'
         self.interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)
-        self.interpreter = None
+        # self.interpreter = None
         self.labels = gci.getLabels(os.path.join(os.getcwd(), 'Utils', 'champ_list.txt'))
+        print(self.labels)
         print("\n[!] Searching for game window")
         while not self.found_window:
             print("  Did not find window, trying again...")
@@ -94,6 +95,7 @@ class Game:
                     curr_champs = game_functions.get_curr_champs(self.Window,
                                                                 self.interpreter,
                                                                 self.labels)
+                    print("game.py updated")
                     self.updated = False
                 self.overlay.curr_shop = curr_champs
                 self.overlay.target_champs = self.wanted_champs

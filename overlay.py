@@ -49,6 +49,7 @@ class CustomWindow(QMainWindow):
     '''
     def updateOverlay(self):
         self.update()
+        print("Ive updated!")
         return
 
     def paintEvent(self, event=None):
@@ -64,8 +65,11 @@ class CustomWindow(QMainWindow):
         painter1.setOpacity(opc)
         painter1.setPen(QPen(Qt.red,  5, Qt.SolidLine))
 
-
+        print("current shop: ", self.curr_shop)
+        print("target champs: ", self.target_champs)
         for idx, champ in enumerate(self.curr_shop):
+
+
             if champ in self.target_champs:
                 spacing = round(screen_coords.CHAMP_SPACING * self.sc)
                 x = round(screen_coords.CHAMP_LEFT * self.sc)
@@ -81,7 +85,7 @@ def main(sc):
     window.setWindowFlags(Qt.FramelessWindowHint)
     window.setAttribute(Qt.WA_NoSystemBackground, True)
     window.setAttribute(Qt.WA_TranslucentBackground, True)
-    window.start_monitoring()
+    # window.start_monitoring()
 
     # Create the button
     pushButton = QPushButton(window)
