@@ -47,7 +47,7 @@ def getLabels(labelFile):
     cost = 0
     labels = []
     for line in f:
-        if line == '':
+        if line == '' or line=='\n':
             continue
         if line[0].isnumeric():
             cost = line[0]
