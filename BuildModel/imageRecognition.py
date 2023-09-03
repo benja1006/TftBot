@@ -8,8 +8,8 @@ import os
 
 seed = 35
 batch_size = 64
-img_height = 188
-img_width = 257
+#img_height = 188
+#img_width = 257
 
 img_height = 25
 img_width = 35
@@ -68,7 +68,8 @@ champ_test = champ_test.cache().prefetch(buffer_size=AUTOTUNE)
 
 data_normalization = keras.Sequential(
     [
-        layers.BatchNormalization()
+        layers.BatchNormalization(),
+        layers.Lambda(lambda x: tf.image.rgb_to_grayscale(x))
     ]
 )
 data_augmentation = keras.Sequential(
@@ -87,7 +88,7 @@ num_classes = len(champ_names)
 model = keras.Sequential([
     data_normalization,
     data_augmentation,
-    layers.Rescaling(1./255, input_shape=(img_width, img_height, 3)),
+    layers.Rescaling(1./255, input_shape=(img_width, img_height, 1)),
     layers.Conv2D(16, 3, padding='same', activation='relu'),
     layers.MaxPooling2D(),
     layers.Conv2D(32, 3, padding='same', activation='relu'),
