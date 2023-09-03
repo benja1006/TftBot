@@ -5,6 +5,8 @@ import screeninfo
 import pytesseract
 import re
 import random
+import time
+import math
 
 # pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Jorda\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
@@ -31,6 +33,8 @@ for i, img in enumerate(croppedImages):
 
     im2 = img.copy()
     for cnt in contours:
+        if not os.path.exists(imageFullPaths[i]):
+            break
         x, y, w, h = cv2.boundingRect(cnt)
 
         # Drawing a rectangle on copied image
@@ -43,7 +47,7 @@ for i, img in enumerate(croppedImages):
         text = pytesseract.image_to_string(cropped)
         text = text[0:-1]
         text = re.sub(r'\W+', '', text)
-        new_f_name = str(random.randint(1,100000)) + ".jpg"
+        new_f_name = str(math.floor((time.time()*1000))) + ".jpg"
         # Move the uncropped file
         if text == "":
             assert os.path.exists(imageFullPaths[i])

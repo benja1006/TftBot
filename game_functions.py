@@ -107,7 +107,7 @@ def update_tk(tk):
 
 def update_tkQT_loop(tk, wait_time, dPressed, QT=None):
     """Continuously update the tk window for duration of wait_time."""
-    for i in range(wait_time*10):
+    for i in range(wait_time*20):
         # break this loop if the d key is pressed
         tk.update()
         tk.update_idletasks()
@@ -115,7 +115,7 @@ def update_tkQT_loop(tk, wait_time, dPressed, QT=None):
             if QT:
                 QT.update()
             break
-        time.sleep(.1)
+        time.sleep(.05)
 
 
 def get_curr_champs(window: Window, interpreter, labels):
