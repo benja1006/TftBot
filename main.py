@@ -10,14 +10,14 @@ import argparse
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-def main():
+def main(args):
     """Run the bot."""
     print('\n\nrunning...')
     window = interface.main()
 
     # ################################ MAIN LOOP ############################ #
     # on shop update
-    game = Game(window)
+    game = Game(window, args)
 
 # def imagePredict(labels, interpreter):
 #     """Predict the champ in an image."""
@@ -28,5 +28,6 @@ def main():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-m', '--mode', help='Run without game', choices=['no_game'], required=False)
+    args = parser.parse_args()
     time.sleep(5)
-    main()
+    main(args)

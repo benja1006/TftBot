@@ -17,7 +17,10 @@ def get_text_from_image(img):
     contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL,
                                            cv2.CHAIN_APPROX_NONE)
 
+    if len(contours) == 0:
+        return ""
     im2 = img.copy()
+    
     cnt = contours[0]
     x, y, w, h = cv2.boundingRect(cnt)
 

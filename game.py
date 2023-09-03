@@ -9,12 +9,13 @@ import re
 import keyboard
 import sys
 import overlay
+from win32api import GetSystemMetrics
 
 
 class Game:
     """The game class."""
 
-    def __init__(self, interface):
+    def __init__(self, interface, args):
         """Innitiate instance variables and find the TFT window."""
         self.round = "0-0"
         self.roundStatus = "Loading Screen"
@@ -23,15 +24,19 @@ class Game:
         self.dPressed = False
         keyboard.add_hotkey('ctrl+q', self.quit)
         keyboard.add_hotkey('d', self.on_d_press)
-
         print('Loading Model...')
         TF_MODEL_FILE_PATH = 'model.tflite'
         self.interpreter = tf.lite.Interpreter(model_path=TF_MODEL_FILE_PATH)
         # self.interpreter = None
         self.labels = gci.getLabels(os.path.join(os.getcwd(), 'Utils', 'champ_list.txt'))
         print(self.labels)
-        print("\n[!] Searching for game window")
+
+        if args.mode == 'no_game':
+            print('No game flag set. Skipping waiting for game.')
+            self.fake_findWindow()
+
         while not self.found_window:
+            print("\n[!] Searching for game window")
             print("  Did not find window, trying again...")
             win32gui.EnumWindows(self.findWindow, None)
             game_functions.update_tkQT_loop(self.interface.tk, 1, self.dPressed)
@@ -60,6 +65,18 @@ class Game:
         sc = width / 2560
         self.overlay = overlay.main(sc)
         print("running main")
+    
+    def fake_findWindow(self):
+        width = GetSystemMetrics(0)
+        height = GetSystemMetrics(1)
+
+        self.Window = Window(0, 0, width, height)
+        self.found_window = True
+        sc = width / 2560
+        self.overlay = overlay.main(sc)
+        print("running main without game")
+
+
 
     def loading_screen(self):
         """Wait for the loading screen to end."""
