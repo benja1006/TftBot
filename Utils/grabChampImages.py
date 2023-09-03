@@ -38,6 +38,8 @@ def predictImage(image, interpreter, class_names):
         .format(class_names[np.argmax(score_lite)], 100 * np.max(score_lite))
     )
     result = class_names[np.argmax(score_lite)]
+    if np.max(score_lite) < .8:
+        return None
     return result
 
 
