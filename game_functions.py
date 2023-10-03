@@ -55,7 +55,7 @@ def get_round(window: Window) -> str:
     if photo:
         save_image(os.path.join(os.getcwd(), 'RoundImages'), cropped_image)
     if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
-        print('Current round: ' + roundstr)
+        # print('Current round: ' + roundstr)
         return roundstr
     # try second location
     left = trX(sc.ROUND_NUM_START_LEFT, window)
@@ -65,7 +65,7 @@ def get_round(window: Window) -> str:
     if photo:
         save_image(os.path.join(os.getcwd(), 'RoundImages'), cropped_image)
     if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
-        print('Current round: ' + roundstr)
+        # print('Current round: ' + roundstr)
         return roundstr
 
     left = trX(sc.ROUND_NUM_HYPERROLL_1_LEFT, window)
@@ -75,7 +75,7 @@ def get_round(window: Window) -> str:
     if photo:
         save_image(os.path.join(os.getcwd(), 'RoundImages'), cropped_image)
     if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
-        print('Current round: ' + roundstr)
+        # print('Current round: ' + roundstr)
         return roundstr
 
     left = trX(sc.ROUND_NUM_HYPERROLL_2_LEFT, window)
@@ -85,7 +85,7 @@ def get_round(window: Window) -> str:
     if photo:
         save_image(os.path.join(os.getcwd(), 'RoundImages'), cropped_image)
     if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
-        print('Current round: ' + roundstr)
+        # print('Current round: ' + roundstr)
         return roundstr
     left = trX(sc.ROUND_NUM_HYPERROLL_3_LEFT, window)
     right = trX(sc.ROUND_NUM_HYPERROLL_3_RIGHT, window)
@@ -94,7 +94,7 @@ def get_round(window: Window) -> str:
     if photo:
         save_image(os.path.join(os.getcwd(), 'RoundImages'), cropped_image)
     if re.match(r"(\s*[0-9]-[0-9]\s*)", roundstr):
-        print('Current round: ' + roundstr)
+        # print('Current round: ' + roundstr)
         return roundstr
     return ""
 
