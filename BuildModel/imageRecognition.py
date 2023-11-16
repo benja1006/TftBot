@@ -8,11 +8,11 @@ import os
 
 seed = 35
 batch_size = 64
-#img_height = 188
-#img_width = 257
+img_height = 188
+img_width = 257
 
-img_height = 25
-img_width = 35
+# img_height = 25
+# img_width = 35
 
 # import data from folders
 (champ_train, champ_test) = keras.utils.image_dataset_from_directory(
@@ -97,7 +97,8 @@ model = keras.Sequential([
     layers.MaxPooling2D(),
     layers.Flatten(),
     layers.Dense(128, activation='relu'),
-    layers.Dense(num_classes)
+    layers.Dropout(.5),
+    layers.Dense(num_classes, activation='softmax')
 ])
 # compile model
 model.compile(optimizer='adam',

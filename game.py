@@ -95,7 +95,7 @@ class Game:
         self.updated = False
         while True: #FIXME Really need to do something better here.
             self.wanted_champs = self.interface.getList()
-            new_round = game_functions.get_round(self.Window)dd
+            new_round = game_functions.get_round(self.Window)
 
             if new_round != self.round and new_round != "":
                 print("round updated from", self.round, "to", new_round)
